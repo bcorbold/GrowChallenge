@@ -1,4 +1,12 @@
+require('./style.scss');
+
 import $ from 'jquery';
+import { createHeader } from './modules/header/header';
+
+$(document).ready(() => {
+  createHeader();
+});
+
 
 let fetchedData;
 

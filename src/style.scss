@@ -14,29 +14,7 @@ body {
     box-sizing: inherit;
 }
 
-.material-icons {
-    color: white;
-}
 
-.mobile-header {
-    width: 100%;
-    background-color: #212121;
-    overflow: auto;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    padding: 16px;
-}
-
-.header-title {
-    color: white;
-    font-size: 36px;
-    font-weight: 300;
-    margin-left: 34px;
-}
 
 .transactions-container {
     padding: 0;
@@ -63,6 +41,12 @@ body {
     font-size: 24px;
     font-weight: 300;
 }
+
+
+
+
+
+
 /* default styles */
 h1 {}
 /* todo: @media doesn't work on iOS + chrome */
