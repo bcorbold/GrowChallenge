@@ -14,21 +14,99 @@
 </head>
 
 <body>
-  <div class="mobile-header">
-    <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons">menu</i>
-    </button>
-    <span class="header-title">Transactions</span>
+  <!--<div class="mobile-header">-->
+    <!--<button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button&#45;&#45;icon">-->
+      <!--<i class="material-icons">menu</i>-->
+    <!--</button>-->
+    <!--<span class="header-title">Transactions</span>-->
+  <!--</div>-->
+
+  <style>
+    .demo-layout-transparent {
+      background-color: #000;
+    }
+    .demo-layout-transparent .mdl-layout__header,
+    .demo-layout-transparent .mdl-layout__drawer-button {
+      /* This background is dark, so we set text to white. Use 87% black instead if
+         your background is light. */
+      color: white;
+    }
+  </style>
+
+  <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Title</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Filters</span>
+      <nav class="mdl-navigation" style="padding: 0 4px;">
+
+        <div style="display: flex; align-items: center;">
+          <!--<form action="#">-->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="sample3">
+              <label class="mdl-textfield__label" for="sample3">Accounts</label>
+            </div>
+          <!--</form>-->
+          <i class="material-icons" style="color: red; margin-left: 8px;">add</i>
+        </div>
+        <!-- todo: chip list -->
+        <div></div>
+
+        <div style="display: flex; align-items: center;">
+          <!--<form action="#">-->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="sample3">
+            <label class="mdl-textfield__label" for="sample3">Categories</label>
+          </div>
+          <!--</form>-->
+          <i class="material-icons" style="color: red; margin-left: 8px;">add</i>
+        </div>
+        <!-- todo: chip list -->
+        <div></div>
+
+
+        <div style="display: flex;">
+          <button style="flex-grow: 1;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            SUBMIT
+          </button>
+          <button style="flex-grow: 1;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--warn">
+            RESET
+          </button>
+        </div>
+
+      </nav>
+    </div>
+    <main class="mdl-layout__content" style="padding-top: 48px;">
+      <ul class="transactions-container"></ul>
+    </main>
   </div>
-  <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-    <li class="mdl-menu__item">Some Action</li>
-    <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
-    <li disabled class="mdl-menu__item">Disabled Action</li>
-    <li class="mdl-menu__item">Yet Another Action</li>
-  </ul>
+
+  
+
+
+
+  <!--<ul class="mdl-menu mdl-menu&#45;&#45;bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">-->
+    <!--<li class="mdl-menu__item">Some Action</li>-->
+    <!--<li class="mdl-menu__item mdl-menu__item&#45;&#45;full-bleed-divider">Another Action</li>-->
+    <!--<li disabled class="mdl-menu__item">Disabled Action</li>-->
+    <!--<li class="mdl-menu__item">Yet Another Action</li>-->
+  <!--</ul>-->
 
   <!-- add transaction cards to this container -->
-  <ul class="transactions-container"></ul>
+  <!--<ul class="transactions-container"></ul>-->
 
   <script src="bundle.js"></script>
 </body>
