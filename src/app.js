@@ -2,12 +2,14 @@ require('./style.scss');
 
 import $ from 'jquery';
 
+import { createFooter } from './modules/footer/footer';
 import { createHeader } from './modules/header/header';
 import { createTransactionList } from './modules/transaction-list/transaction-list'
 
 $(document).ready(() => {
   createHeader();
   createTransactionList();
+  createFooter();
 });
 
 
