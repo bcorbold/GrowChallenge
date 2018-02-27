@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-teal.min.css"/>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.14/webcomponents-hi.js"></script>
 
 </head>
 
@@ -30,9 +31,9 @@
     <li class="mdl-menu__item">Yet Another Action</li>
   </ul>
 
-  <ul id="transactionList">
-  </ul>
+  <transaction-card style="width: 100%; min-height: 1em; display: block;"></transaction-card>
 
+  <link rel="import" href="./components/transaction-card/transaction-card.html">
   <script src="main.js"></script>
 </body>
 </html>
