@@ -2,15 +2,10 @@ import $ from 'jquery';
 
 let fetchedData;
 
-function createTransactionRowTemplate(transaction) {
-  return `<p style="width: 100%; min-height: 1em;">${transaction.transactionId}</p>`
-}
-
-function renderTransactionList(transaction) {
-  const transactionListContainer = $('.transactions-container');
-  transaction.forEach(t => {
-    transactionListContainer.append(createTransactionRowTemplate(t));
-  });
+function init() {
+  const headerHeight = $('.mobile-header').outerHeight();
+  $('.transactions-container').css('height', `calc(100% - ${headerHeight}px`);
+  fetchTransactions();
 }
 
 function fetchTransactions() {
@@ -20,15 +15,24 @@ function fetchTransactions() {
       .then(data => {
         fetchedData = data;
         renderTransactionList(data.transactionData.transactions);
-        console.log(fetchedData);
       })
       .catch(error => console.error(error));
 }
 
-function init() {
-  const headerHeight = $('.mobile-header').outerHeight();
-  $('.transactions-container').css('height', `calc(100% - ${headerHeight}px`);
-  fetchTransactions();
+function renderTransactionList(transactionList) {
+  const transactionListContainer = $('.transactions-container');
+  transactionList.forEach(t => {
+    transactionListContainer.append(createTransactionRowTemplate(t));
+  });
+}
+
+function createTransactionRowTemplate(transaction) {
+  const accountName = fetchedData.accounts.filter(a => a.accountId === transaction.accountId)[0].accountName;
+  const card = `<div style="width: 100%; margin-bottom: 2px; padding: 8px; background-color: white;">
+                    <p style="margin: 0;">${accountName}</p>
+                </div>`;
+
+  return card;
 }
 
 init();
