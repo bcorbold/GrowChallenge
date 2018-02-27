@@ -4,31 +4,27 @@
   "description": "Coding challenge for Grow",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config prod.webpack.config.js -p",
-    "postbuild": "cp index.html docs/index.html | cp style.css docs/style.css",
+    "build": "webpack --config webpack.config.js -p",
+    "postbuild": "cp index.html docs/index.html | mv bundle.js docs/bundle.js",
     "serve": "webpack-dev-server",
     "test": "webpack"
   },
-  "pre-commit": [
-    "test"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bcorbold/GrowChallenge"
   },
   "author": "Braden Corbold <bradencorbold@gmail.com>",
   "dependencies": {
-    "jquery": "^3.3.1",
-    "lodash": "^4.17.5"
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
-    "eslint": "^3.16.1",
-    "eslint-loader": "^1.6.3",
-    "pre-commit": "^1.2.2",
+    "css-loader": "^0.28.10",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   }
