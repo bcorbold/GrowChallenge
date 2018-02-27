@@ -3,8 +3,6 @@ import $ from 'jquery';
 let fetchedData;
 
 function init() {
-  const headerHeight = $('.mobile-header').outerHeight();
-  $('.transactions-container').css('height', `calc(100% - ${headerHeight}px`);
   fetchTransactions();
 }
 
@@ -14,6 +12,10 @@ function fetchTransactions() {
   fetch(transactionUrl).then(response => response.json())
       .then(data => {
         fetchedData = data;
+        updateTotalBalance(data.accounts);
+        const headerHeight = $('.mobile-header').outerHeight();
+        const footerHeight = $('.mobile-footer').outerHeight();
+        $('.transactions-container').css('height', `calc(100% - ${headerHeight}px - ${footerHeight}px`);
         renderTransactionList(data.transactionData.transactions);
       })
       .catch(error => console.error(error));
@@ -37,6 +39,7 @@ function createDateHeader(date) {
           </div>`;
 }
 
+// todo: for negative transactions "-" should come before "$", need a better number formatter
 function createTransactionRowTemplate(transaction) {
   const accountName = fetchedData.accounts.filter(a => a.accountId === transaction.accountId)[0].accountName;
   const card = `<div style="width: 100%; margin-bottom: 2px; padding: 8px 16px; background-color: white; display: flex; flex-direction: row">
@@ -51,6 +54,12 @@ function createTransactionRowTemplate(transaction) {
                 </div>`;
 
   return card;
+}
+
+function updateTotalBalance(accountList) {
+  let totalBalance = 0;
+  accountList.forEach(account => totalBalance += account.balance);
+  $('.mobile-footer').append(`<p>Total Balance:</p><p style="color: #009688; margin-left: 2px;"><i> $${totalBalance.toFixed(2)}</i></p>`)
 }
 
 // todo: could initially create templates for all transaction cards and then add/remove templates as needed

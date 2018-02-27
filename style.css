@@ -44,6 +44,25 @@ body {
     overflow: auto;
 }
 
+.mobile-footer {
+    width: 100%;
+    background-color: #212121;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.mobile-footer p {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 300;
+}
 /* default styles */
 h1 {}
 /* todo: @media doesn't work on iOS + chrome */
