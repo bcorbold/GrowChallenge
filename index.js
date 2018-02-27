@@ -46,7 +46,7 @@ function createTransactionRowTemplate(transaction) {
                     </div>
                     <div style="text-align: right;">
                       <p style="margin: 0; font-size: 20px;">$${transaction.amount.toFixed(2)}</p>
-                      <p style="margin: 0; font-size: 12px; font-weight: 300;">$${transaction.runningBalance.toFixed(2)}</p>
+                      <p style="margin: 0; font-size: 12px; font-weight: 300; color: #00695C">$${transaction.runningBalance.toFixed(2)}</p>
                     </div>
                 </div>`;
 
