@@ -1,0 +1,23 @@
+.mobile-header {
+  width: 100%;
+  background-color: #212121;
+  overflow: auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+
+  .material-icons {
+    color: white;
+  }
+
+  .header-title {
+    color: white;
+    font-size: 36px;
+    font-weight: 300;
+    margin-left: 34px;
+  }
+}
