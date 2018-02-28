@@ -1,5 +1,5 @@
 /* The side navigation menu */
-.sidenav {
+.side-nav {
   height: 100%;
   width: 0; // change width to show/hide
   position: fixed;
@@ -8,12 +8,15 @@
   left: 0;
   background-color: white;
   overflow-x: hidden;
-  padding-top: 60px;
+  padding: 16px 0 ;
   transition: 0.30s;
 
   .accounts-select, .category-select {
     margin: 0 16px;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    width: 100%;
     display: flex;
     align-items: center;
   }
@@ -23,19 +26,33 @@
     margin: 0 16px;
   }
 
-  // Position and style the close button (top right corner)
-  .closebtn {
+  .filter-buttons {
+    margin: 0 16px;
     position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 36px;
+    bottom: 16px;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    flex-direction: row;
+    display: flex;
+    flex-flow: row;
+
+    button#submitFiltersButton {
+      flex-grow: 1;
+      margin-right: 8px;
+    }
+
+    button#resetFiltersButton {
+      flex-grow: 1;
+      margin-left: 8px;
+    }
   }
 }
 
 // todo: still have to do responsive layout
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {
+  .side-nav {
     padding-top: 16px;
   }
 }

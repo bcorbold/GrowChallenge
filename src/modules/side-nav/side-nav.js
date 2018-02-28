@@ -18,17 +18,27 @@ const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
 
 // todo: should make filter inputs (account + categories) autocomplete
-const sideNaveTemplate = `<div id="mySidenav" class="sidenav">
-                            <i class="closebtn material-icons" id="closeNav">clear</i>
+const sideNaveTemplate = `<div id="mySidenav" class="side-nav">
+                            <!--<i class="closebtn material-icons" id="closeNav">clear</i>-->
                             
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
                             <div id="selected-accounts" class="selected-accounts-list"></div>
                             
                             <div id="${categoryFilterContainerId}" class="category-select"></div>
                             <div id="selected-categories" class="categories-accounts-list"></div>
+                            
+                            <div id="filterButtons" class="filter-buttons" style="margin: 0 16px;">
+                              <button id="submitFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                                Submit
+                              </button>
+                              <button id="resetFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Reset
+                              </button>
+                            </div>
 
                           </div>`;
 
+// todo: fix button's wrapping around when opening/closing the side nav
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
@@ -39,16 +49,30 @@ export function createSideNav() {
   document.getElementById(`${categoryAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
 
   document.getElementById('openNav').addEventListener('click', () => openNav());
-  document.getElementById('closeNav').addEventListener('click', () => closeNav());
   document.getElementById(`${accountAutoCompleteId}Button`).addEventListener('click', () => addAccountFilterChip());
   document.getElementById(`${categoryAutoCompleteId}Button`).addEventListener('click', () => addCategoryFilterChip());
+
+  const submitFiltersButton = document.getElementById('submitFiltersButton');
+  const resetFiltersButton = document.getElementById('resetFiltersButton');
+  submitFiltersButton.style.width = ``;
+  resetFiltersButton.style.width = ``;
+
+  submitFiltersButton.addEventListener('click', () => {
+    // todo: trigger application of the filters to the transaction-list
+    closeNav();
+  });
+  resetFiltersButton.addEventListener('click', () => {
+    // todo: trigger reset of all filters
+    closeNav();
+  });
+
 }
 
-export function openNav() {
+function openNav() {
   document.getElementById('mySidenav').style.width = 'calc(100vw - 56px)';
 }
 
-export function closeNav() {
+function closeNav() {
   document.getElementById('mySidenav').style.width = '0';
 }
 
