@@ -48,7 +48,10 @@ export function createSideNav() {
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
   document.getElementById(`${categoryAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
 
-  document.getElementById('openNav').addEventListener('click', () => openNav());
+  document.getElementById('openNav').addEventListener('click', (event) => {
+    openNav();
+    event.stopPropagation();
+  });
   document.getElementById(`${accountAutoCompleteId}Button`).addEventListener('click', () => addAccountFilterChip());
   document.getElementById(`${categoryAutoCompleteId}Button`).addEventListener('click', () => addCategoryFilterChip());
 
@@ -58,6 +61,14 @@ export function createSideNav() {
   });
   document.getElementById('resetFiltersButton').addEventListener('click', () => {
     // todo: trigger reset of all filters
+    closeNav();
+  });
+
+  document.getElementById('mySidenav').addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
+  document.addEventListener("click", ()  => {
     closeNav();
   });
 
