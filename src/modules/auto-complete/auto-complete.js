@@ -22,6 +22,7 @@ export function populateAutoComplete(inputId, filterList) {
 
 // todo: should show potential options if input is empty
 // todo: go through all of this and clean up
+// todo: match based on contents of string instead of just matching the start
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,

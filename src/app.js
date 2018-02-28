@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 import { createFooter, updateTotalBounce } from './modules/footer/footer';
 import { createHeader } from './modules/header/header';
-import { setAccounts } from './modules/side-nav/side-nav';
+import { setAccounts, setTransactionCategories } from './modules/side-nav/side-nav';
 import { createTransactionList, renderTransactionList } from './modules/transaction-list/transaction-list'
 
 // todo: anyway to avoid this?
@@ -24,6 +24,7 @@ function fetchTransactions() {
         fetchedData = data;
         updateTotalBounce(fetchedData.accounts);
         setAccounts(fetchedData.accounts);
+        setTransactionCategories(fetchedData.categories);
 
         const headerHeight = $('.mobile-header').outerHeight();
         const footerHeight = $('.mobile-footer').outerHeight();

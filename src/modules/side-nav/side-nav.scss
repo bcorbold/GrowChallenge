@@ -11,14 +11,14 @@
   padding-top: 60px;
   transition: 0.30s;
 
-  .accounts-select {
+  .accounts-select, .category-select {
     margin: 0 16px;
     width: -webkit-fill-available;
     display: flex;
     align-items: center;
   }
 
-  .selected-accounts-list {
+  .selected-accounts-list, .categories-accounts-list {
     width: 100%;
     margin: 0 16px;
   }
