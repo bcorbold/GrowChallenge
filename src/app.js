@@ -13,7 +13,6 @@ $(document).ready(() => {
   createHeader();
   createTransactionList();
   createFooter();
-
   fetchTransactions();
 });
 
