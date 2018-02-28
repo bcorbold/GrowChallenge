@@ -52,16 +52,11 @@ export function createSideNav() {
   document.getElementById(`${accountAutoCompleteId}Button`).addEventListener('click', () => addAccountFilterChip());
   document.getElementById(`${categoryAutoCompleteId}Button`).addEventListener('click', () => addCategoryFilterChip());
 
-  const submitFiltersButton = document.getElementById('submitFiltersButton');
-  const resetFiltersButton = document.getElementById('resetFiltersButton');
-  submitFiltersButton.style.width = ``;
-  resetFiltersButton.style.width = ``;
-
-  submitFiltersButton.addEventListener('click', () => {
+  document.getElementById('submitFiltersButton').addEventListener('click', () => {
     // todo: trigger application of the filters to the transaction-list
     closeNav();
   });
-  resetFiltersButton.addEventListener('click', () => {
+  document.getElementById('resetFiltersButton').addEventListener('click', () => {
     // todo: trigger reset of all filters
     closeNav();
   });
