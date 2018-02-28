@@ -43,7 +43,8 @@ export function closeNav() {
 function addAccountFilterChip() {
   const accountName = document.getElementById(`${accountAutoCompleteId}`).value;
 
-  if (!filteredAccounts.includes(accountName)) {
+  // todo: add verification so that user can only add filters that are actual accounts
+  if (accountName !== null && accountName !== undefined && !filteredAccounts.includes(accountName)) {
     filteredAccounts.push(accountName);
     const chip = createChip(accountName);
     chip.on('click', function(event) {
