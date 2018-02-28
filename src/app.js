@@ -18,7 +18,7 @@ $(document).ready(() => {
 });
 
 function fetchTransactions() {
-  const transactionUrl = 'http://demo7235469.mockable.io/transactions';
+  const transactionUrl = 'https://demo7235469.mockable.io/transactions';
   fetch(transactionUrl).then(response => response.json())
       .then(data => {
         fetchedData = data;
