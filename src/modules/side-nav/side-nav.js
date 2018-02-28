@@ -19,12 +19,10 @@ export function createSideNav() {
   document.getElementById('closeNav').addEventListener('click', () => closeNav());
 }
 
-/* Set the width of the side navigation to 250px */
 export function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById('mySidenav').style.width = 'calc(100vw - 56px)';
 }
 
-/* Set the width of the side navigation to 0 */
 export function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById('mySidenav').style.width = '0';
 }
