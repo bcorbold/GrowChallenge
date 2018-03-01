@@ -54,10 +54,7 @@ export function createSideNav() {
   document.getElementById(`${accountAutoCompleteId}Button`).addEventListener('click', () => addAccountFilterChip());
   document.getElementById(`${categoryAutoCompleteId}Button`).addEventListener('click', () => addCategoryFilterChip());
 
-  document.getElementById('submitFiltersButton').addEventListener('click', () => {
-    // todo: trigger application of the filters to the transaction-list
-    closeNav();
-  });
+  document.getElementById('submitFiltersButton').addEventListener('click', () => closeNav());
   document.getElementById('resetFiltersButton').addEventListener('click', () => {
     filteredAccounts = [];
     filteredCategories = [];
@@ -75,13 +72,8 @@ export function createSideNav() {
     closeNav();
   });
 
-  document.getElementById('filterSideNav').addEventListener('click', (event) => {
-    event.stopPropagation();
-  });
-
-  document.addEventListener("click", ()  => {
-    closeNav();
-  });
+  document.getElementById('filterSideNav').addEventListener('click', (event) => event.stopPropagation());
+  document.addEventListener("click", ()  => closeNav());
 
 }
 

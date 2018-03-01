@@ -4,13 +4,13 @@ import $ from 'jquery';
 
 export function createAutoCompleteInput(parentId, inputId, label) {
   const template = `
-    <i class="material-icons auto-complete-filter-add" id="${inputId}Button">add</i>
     <form autocomplete="off" style="position: relative; display: inline-block;" id="${inputId}Form">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="${inputId}">
         <label class="mdl-textfield__label" for="${inputId}">${label}</label>
       </div>
     </form>
+    <i class="material-icons auto-complete-filter-add" id="${inputId}Button">add</i>
 `;
 
   $(`#${parentId}`).append(template);
