@@ -2,6 +2,8 @@ require('./transaction-list.scss');
 
 import $ from 'jquery';
 
+import { formatDollarAmount } from '../helpers';
+
 const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
 let storedTransactionList = []; // todo: can store it here for re-ordering
 let storedAccountList = [];
@@ -37,7 +39,6 @@ function createDateHeader(date) {
   return `<div class="date-header"><p>${date}</p></div>`;
 }
 
-// todo: for negative transactions "-" should come before "$", need a better number formatter
 function createTransactionRowTemplate(transaction, account) {
   return `<div class="transaction-card">
               <div class="transaction-info">
@@ -45,8 +46,8 @@ function createTransactionRowTemplate(transaction, account) {
                 <i>${transaction.description}</i>
               </div>
               <div class="transaction-values">
-                <p class="transaction-amount">$${transaction.amount.toFixed(2)}</p>
-                <p class="account-running-balance">$${transaction.runningBalance.toFixed(2)}</p>
+                <p class="transaction-amount">${formatDollarAmount(transaction.amount)}</p>
+                <p class="account-running-balance">${formatDollarAmount(transaction.runningBalance)}</p>
               </div>
           </div>`;
 }

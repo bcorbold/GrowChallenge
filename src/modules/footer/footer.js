@@ -2,9 +2,9 @@ require('./footer.scss');
 
 import $ from 'jquery';
 
-const footerTemplate = `<div class="mobile-footer">
-                          <p>Total Balance:</p>
-                        </div>`;
+import { formatDollarAmount } from '../helpers';
+
+const footerTemplate = '<div class="mobile-footer"><p>Total Balance:</p></div>';
 
 export function createFooter() {
   $('body').append(footerTemplate);
@@ -14,6 +14,5 @@ export function createFooter() {
 export function updateTotalBounce(accountList) {
   let totalBalance = 0;
   accountList.forEach(account => totalBalance += account.balance);
-  // todo: remove inline styles
-  $('.mobile-footer').append(`<p class="total-account-balance"><i> $${totalBalance.toFixed(2)}</i></p>`);
+  $('.mobile-footer').append(`<p class="total-account-balance"><i>${formatDollarAmount(totalBalance)}</i></p>`);
 }
