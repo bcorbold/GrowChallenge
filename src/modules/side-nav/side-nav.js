@@ -33,7 +33,6 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                             </div>
                           </div>`;
 
-// todo: fix button's wrapping around when opening/closing the side nav
 // todo: only display categories that transactions have?
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
@@ -65,7 +64,6 @@ export function createSideNav() {
     while (categoriesChipList.firstChild) {
       categoriesChipList.removeChild(categoriesChipList.firstChild);
     }
-    // todo: reset transaction list
     closeNav();
   });
 
@@ -102,7 +100,7 @@ function addAccountFilterChip() {
 function addCategoryFilterChip() {
   const category = document.getElementById(`${categoryAutoCompleteId}`).value;
 
-  // todo: add verification so that user can only add filters that are actual accounts
+  // todo: add verification so that user can only add filters that are actual categories
   if (category !== null && category !== undefined && category !== '' && !filteredCategories.includes(category)) {
     filteredCategories.push(category);
     const chip = createChip(category);

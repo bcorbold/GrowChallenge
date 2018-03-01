@@ -2,7 +2,7 @@ require('./style.scss');
 
 import $ from 'jquery';
 
-import { createFooter, updateTotalBounce } from './modules/footer/footer';
+import { createFooter, renderTotalBounce } from './modules/footer/footer';
 import { createHeader } from './modules/header/header';
 import { getFilteredAccountNames, getFilteredCategories, setAccounts, setTransactionCategories } from './modules/side-nav/side-nav';
 import { createTransactionList, renderTransactionList, reverseOrder } from './modules/transaction-list/transaction-list'
@@ -22,7 +22,7 @@ function fetchTransactions() {
   fetch(transactionUrl).then(response => response.json())
       .then(data => {
         fetchedData = data;
-        updateTotalBounce(fetchedData.accounts);
+        renderTotalBounce(fetchedData.accounts);
         setAccounts(fetchedData.accounts);
         setTransactionCategories(fetchedData.categories);
 

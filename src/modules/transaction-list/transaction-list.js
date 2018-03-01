@@ -12,6 +12,7 @@ export function createTransactionList() {
   $('body').append(emptyTemplate);
 }
 
+// todo: should display something to tell the user if there are no transactions matching their filters
 export function renderTransactionList(transactionList, accountList) {
   const transactionListContainer = $('#transactionsContainer');
   storedTransactionList = transactionList;
