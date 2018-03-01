@@ -11,9 +11,9 @@ const headerTemplate =
       <button class="mdl-button mdl-js-button mdl-button--icon" id="openNav">
         <i class="material-icons">menu</i>
       </button>
-      <button class="mdl-button mdl-js-button" id="dateSortButton">
+      <button class="mdl-button mdl-js-button date-sort-button" id="dateSortButton">
         <i id="sortArrow" class="material-icons">${downArrow}</i>
-        <span style="color: white;">Date</span>
+        <span>Date</span>
       </button>
     </div>`;
 

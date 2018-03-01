@@ -65,13 +65,8 @@ function fetchTransactions() {
             renderTransactionList(filteredTransactionList, fetchedData.accounts);
           }
         });
-        document.getElementById('resetFiltersButton').addEventListener('click', () => {
-          renderTransactionList(fetchedData.transactionData.transactions, fetchedData.accounts);
-        });
-        document.getElementById('dateSortButton').addEventListener('click', () => {
-          reverseOrder();
-        });
-
+        document.getElementById('resetFiltersButton').addEventListener('click', () => renderTransactionList(fetchedData.transactionData.transactions, fetchedData.accounts));
+        document.getElementById('dateSortButton').addEventListener('click', () => reverseOrder());
       })
       .catch(error => console.error(error));
 }

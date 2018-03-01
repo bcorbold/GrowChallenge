@@ -9,10 +9,18 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+
+  .total-account-balance {
+    color: #009688;
+    margin-left: 4px;
+  }
 
   p {
     margin: 0;
-    color: white;
     font-size: 24px;
     font-weight: 300;
   }

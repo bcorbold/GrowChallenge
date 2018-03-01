@@ -17,15 +17,13 @@ const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
 
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
-                            <!--<i class="closebtn material-icons" id="closeNav">clear</i>-->
-                            
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
                             <div id="selected-accounts" class="selected-accounts-list"></div>
                             
                             <div id="${categoryFilterContainerId}" class="category-select"></div>
                             <div id="selected-categories" class="categories-accounts-list"></div>
                             
-                            <div id="filterButtons" class="filter-buttons" style="margin: 0 16px;">
+                            <div id="filterButtons" class="filter-buttons">
                               <button id="submitFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                 Submit
                               </button>
@@ -33,7 +31,6 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                                 Reset
                               </button>
                             </div>
-
                           </div>`;
 
 // todo: fix button's wrapping around when opening/closing the side nav

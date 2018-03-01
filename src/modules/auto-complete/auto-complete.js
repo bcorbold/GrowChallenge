@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 export function createAutoCompleteInput(parentId, inputId, label) {
   const template = `
-    <form autocomplete="off" style="position: relative; display: inline-block;" id="${inputId}Form">
+    <form autocomplete="off" class="auto-complete-form" id="${inputId}Form">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="${inputId}">
         <label class="mdl-textfield__label" for="${inputId}">${label}</label>
