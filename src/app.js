@@ -39,15 +39,13 @@ function fetchTransactions() {
           let filteredCategories = getFilteredCategories();
 
           if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
-            console.log('No filters! Render full list');
-            // todo: shouldn't do this if the full list is already rendered
+            // console.log('No filters! Render full list');
             renderTransactionList(fetchedData.transactionData.transactions, fetchedData.accounts);
           } else {
             let filteredTransactionList = fetchedData.transactionData.transactions.slice();
             if (filteredAccountNames.length !== 0) {
-              // todo: filter by accounts
-              console.log('Filtering by accounts:');
-              console.log(filteredAccountNames);
+              // console.log('Filtering by accounts:');
+              // console.log(filteredAccountNames);
               const filteredAccountList = fetchedData.accounts.filter(account => filteredAccountNames.includes(account.accountName));
               filteredTransactionList = filteredTransactionList.filter(transaction => {
                 return filteredAccountList.find(account => account.accountId === transaction.accountId);
@@ -55,11 +53,10 @@ function fetchTransactions() {
             }
 
             if (filteredCategories.length !== 0) {
-             // todo: filter by categories
-              console.log('Filtering by categories:');
-              console.log(filteredCategories);
+              // console.log('Filtering by categories:');
+              // console.log(filteredCategories);
               filteredTransactionList = filteredTransactionList.filter(transaction => filteredCategories.includes(transaction.category));
-              console.log('Filtered transactions length: ' + filteredTransactionList.length);
+              // console.log('Filtered transactions length: ' + filteredTransactionList.length);
             }
 
             renderTransactionList(filteredTransactionList, fetchedData.accounts);
