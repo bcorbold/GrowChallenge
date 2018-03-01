@@ -8,16 +8,10 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 16px;
 
   .material-icons {
     color: white;
-  }
-
-  .header-title {
-    color: white;
-    font-size: 36px;
-    font-weight: 300;
-    margin-left: 34px;
   }
 }

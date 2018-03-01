@@ -1,20 +1,28 @@
-import { createSideNav } from '../side-nav/side-nav';
-
 require('./header.scss');
 
 import $ from 'jquery';
 
-// todo: add button that switched sorting from (new -> old)/(old -> new)
+import { createSideNav } from '../side-nav/side-nav';
+
+const downArrow = 'arrow_downward';
+const upArrow = 'arrow_upward';
 const headerTemplate =
     `<div class="mobile-header">
       <button class="mdl-button mdl-js-button mdl-button--icon" id="openNav">
         <i class="material-icons">menu</i>
       </button>
-      <span class="header-title">Transactions</span>
+      <button class="mdl-button mdl-js-button" id="dateSortButton">
+        <i id="sortArrow" class="material-icons">${downArrow}</i>
+        <span style="color: white;">Date</span>
+      </button>
     </div>`;
 
-
-export function createHeader() {
+    export function createHeader() {
   $('body').append(headerTemplate);
   createSideNav();
+
+  document.getElementById('dateSortButton').addEventListener('click', () => {
+    const arrowElement = document.getElementById('sortArrow');
+    arrowElement.innerText = arrowElement.innerText === downArrow ? upArrow : downArrow;
+  });
 }
