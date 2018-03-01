@@ -5,20 +5,18 @@ import _ from 'lodash';
 
 import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
 
-const filteredAccounts = [];
+let filteredAccounts = [];
 let accounts;
 
-const filteredCategories = [];
+let filteredCategories = [];
 let categories;
 
 const accountAutoCompleteId = 'accountAutoCompleteInput';
 const accountFilterContainerId = 'accountAutoComplete';
-
 const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
 
-// todo: should make filter inputs (account + categories) autocomplete
-const sideNaveTemplate = `<div id="mySidenav" class="side-nav">
+const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                             <!--<i class="closebtn material-icons" id="closeNav">clear</i>-->
                             
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
@@ -39,6 +37,7 @@ const sideNaveTemplate = `<div id="mySidenav" class="side-nav">
                           </div>`;
 
 // todo: fix button's wrapping around when opening/closing the side nav
+// todo: only display categories that transactions have?
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
@@ -60,11 +59,23 @@ export function createSideNav() {
     closeNav();
   });
   document.getElementById('resetFiltersButton').addEventListener('click', () => {
-    // todo: trigger reset of all filters
+    filteredAccounts = [];
+    filteredCategories = [];
+
+    const accountsChipList = document.getElementById('selected-accounts');
+    while (accountsChipList.firstChild) {
+      accountsChipList.removeChild(accountsChipList.firstChild);
+    }
+
+    const categoriesChipList = document.getElementById('selected-categories');
+    while (categoriesChipList.firstChild) {
+      categoriesChipList.removeChild(categoriesChipList.firstChild);
+    }
+    // todo: reset transaction list
     closeNav();
   });
 
-  document.getElementById('mySidenav').addEventListener('click', (event) => {
+  document.getElementById('filterSideNav').addEventListener('click', (event) => {
     event.stopPropagation();
   });
 
@@ -75,11 +86,11 @@ export function createSideNav() {
 }
 
 function openNav() {
-  document.getElementById('mySidenav').style.width = 'calc(100vw - 56px)';
+  document.getElementById('filterSideNav').style.width = 'calc(100vw - 56px)';
 }
 
 function closeNav() {
-  document.getElementById('mySidenav').style.width = '0';
+  document.getElementById('filterSideNav').style.width = '0';
 }
 
 function addAccountFilterChip() {
@@ -136,3 +147,7 @@ export function setTransactionCategories(categoryList) {
   categories = categoryList;
   populateAutoComplete(categoryAutoCompleteId, categories);
 }
+
+export function getFilteredAccountNames() { return filteredAccounts; }
+
+export function getFilteredCategories() { return filteredCategories; }

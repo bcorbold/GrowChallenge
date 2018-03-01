@@ -1,8 +1,8 @@
-import { createSideNav } from '../side-nav/side-nav';
-
 require('./header.scss');
 
 import $ from 'jquery';
+
+import { createSideNav } from '../side-nav/side-nav';
 
 // todo: add button that switched sorting from (new -> old)/(old -> new)
 const headerTemplate =
@@ -10,7 +10,6 @@ const headerTemplate =
       <button class="mdl-button mdl-js-button mdl-button--icon" id="openNav">
         <i class="material-icons">menu</i>
       </button>
-      <span class="header-title">Transactions</span>
     </div>`;
 
 
