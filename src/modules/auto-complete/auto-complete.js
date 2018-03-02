@@ -111,4 +111,5 @@ function autocomplete(inputElement, options) {
 
   // todo: this gets blocked because the nav stops click event from bubbling up
   document.addEventListener("click", event => closeAllLists(event.target));
+  document.getElementById('filterSideNav').addEventListener('click', (event) => closeAllLists(event.target));
 }

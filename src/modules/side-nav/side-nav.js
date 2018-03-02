@@ -83,7 +83,6 @@ function closeNav() {
 function addAccountFilterChip() {
   const accountName = document.getElementById(`${accountAutoCompleteId}`).value;
 
-  // todo: add verification so that user can only add filters that are actual accounts
   if (accountName !== null && accountName !== undefined && accountName !== '' && !filteredAccounts.includes(accountName)) {
     filteredAccounts.push(accountName);
     const chip = createChip(accountName);
@@ -100,7 +99,6 @@ function addAccountFilterChip() {
 function addCategoryFilterChip() {
   const category = document.getElementById(`${categoryAutoCompleteId}`).value;
 
-  // todo: add verification so that user can only add filters that are actual categories
   if (category !== null && category !== undefined && category !== '' && !filteredCategories.includes(category)) {
     filteredCategories.push(category);
     const chip = createChip(category);

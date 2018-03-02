@@ -83,7 +83,7 @@ export function renderTransactionList(transactions) {
       transactionListContainer.append(createTransactionRowTemplate(transaction, accountName));
     });
   } else {
-    // todo: should display something to tell the user if there are no transactions matching their filters
+    transactionListContainer.append('<p class="no-transactions"><i>No transactions available that match the specified filters.</i></p>')
   }
 
   renderedTransactionList = copyJsonData(transactions);
