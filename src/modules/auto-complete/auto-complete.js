@@ -1,3 +1,5 @@
+import { copyJsonData } from '../helpers';
+
 require('./auto-complete.scss');
 
 import $ from 'jquery';
@@ -5,6 +7,7 @@ import $ from 'jquery';
 const keyDown = 40;
 const keyUp = 38;
 const keyEnter = 13;
+const autoCompleteFocusLookUp = {};
 
 export function createAutoCompleteInput(parentId, inputId, label) {
   const template = `
@@ -21,7 +24,11 @@ export function createAutoCompleteInput(parentId, inputId, label) {
 }
 
 export function populateAutoComplete(inputId, filterList) {
-  autocomplete(document.getElementById(inputId), filterList);
+  autoCompleteFocusLookUp[inputId] = {
+    focusedIndex: -1,
+    options: copyJsonData(filterList)
+  };
+  autocomplete(document.getElementById(inputId), autoCompleteFocusLookUp[inputId].options);
 }
 
 // todo: should show potential options if input is empty
@@ -34,41 +41,43 @@ export function populateAutoComplete(inputId, filterList) {
 function autocomplete(inputElement, options) {
 
   // filter on input
-  inputElement.addEventListener('input', (event) => {
-    let inputValue = inputElement.value;
+  inputElement.addEventListener('input', () => {
+    const inputValue = inputElement.value;
+    const inputId = inputElement.id;
     closeAllLists();
 
     if (!inputValue) { return false;}
-    let currentFocus = -1;
 
-    // todo: can do this in a better way?
-    // build div that will contain all the potential values
-    const optionsContainer = document.createElement('DIV');
-    optionsContainer.setAttribute('id',`${inputElement.id}autocomplete-list`);
-    optionsContainer.setAttribute('class', 'autocomplete-items');
-    inputElement.parentNode.appendChild(optionsContainer);
+    $(`#${inputId}`).parent().append(`<di id="${inputId}autocomplete-list" class="autocomplete-items"></div>`);
 
     for (let i = 0; i < options.length; i++) {
-      // todo: right now just compares the start, switch to regex for contents of string
-      if (options[i].substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()) {
-        // build up option div
-        const selectOptionContainer = document.createElement('DIV');
-        selectOptionContainer.innerHTML = `<strong>${options[i].substr(0, inputValue.length)}</strong>${options[i].substr(inputValue.length)}
-                       <input type="hidden" value="${options[i]}">`;
+      const matchedIndex = options[i].toUpperCase().indexOf(inputValue.toUpperCase());
 
-        // handle option being clicked
-        selectOptionContainer.addEventListener('click', function(e) {
+      // todo: this is sloppy
+      if (matchedIndex !== -1) {
+        let selectOptionContainer;
+
+        if (matchedIndex === 0) {
+          selectOptionContainer = $(`<div><strong>${options[i].substr(0, inputValue.length)}</strong>${options[i].substr(inputValue.length)}<input type="hidden" value="${options[i]}"></div>`);
+        } else {
+          selectOptionContainer = $(`<div>${options[i].substr(0, matchedIndex)}<strong>${options[i].substr(matchedIndex, inputValue.length)}</strong>${options[i].substr(matchedIndex + inputValue.length)}<input type="hidden" value="${options[i]}"></div>`);
+        }
+
+        selectOptionContainer.click(function() {
           inputElement.value = this.getElementsByTagName('input')[0].value;
           closeAllLists();
         });
 
-        optionsContainer.appendChild(selectOptionContainer);
+        $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
       }
     }
   });
 
   // highlight selections based on key presses
   inputElement.addEventListener('keydown', function(e) {
+    
+
+
     let x = document.getElementById(this.id + 'autocomplete-list');
     if (x) x = x.getElementsByTagName('div');
     if (e.keyCode === keyDown) {

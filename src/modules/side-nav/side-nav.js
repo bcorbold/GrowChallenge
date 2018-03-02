@@ -37,6 +37,7 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
+  // todo: change these width style changes to classes so they can be changed using @media
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   document.getElementById(`${accountAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
 
