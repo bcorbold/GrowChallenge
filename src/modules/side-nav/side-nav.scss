@@ -10,7 +10,7 @@
   left: 0;
   overflow-x: hidden;
   padding: 16px 0 ;
-  transition: 0.3s;
+  transition: 0.25s;
 
   .accounts-select, .category-select {
     margin: 0 16px;
@@ -54,7 +54,7 @@
 }
 
 .open-nav {
-  width: calc(40em);
+  width: 40em;
 }
 
 .closed-nav {
@@ -65,11 +65,10 @@
 @media screen and (max-width: $mobile-width-breakpoint) {
   .side-nav {
     padding: 8px 0;
-    //background-color: red;
   }
 
   .open-nav {
-    width: calc(100vw - 56px);
+    width: calc(100vw - 4em);
   }
 
   .closed-nav {
@@ -81,11 +80,10 @@
 @media screen and (max-width: $tablet-width-breakpoint) and (min-width: $mobile-width-breakpoint + 1px) {
   .side-nav {
     padding: 8px 0;
-    //background-color: blue;
   }
 
   .open-nav {
-    width: calc(30em);
+    width: 30em;
   }
 
   .closed-nav {

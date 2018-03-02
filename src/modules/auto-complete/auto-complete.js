@@ -26,6 +26,7 @@ export function populateAutoComplete(inputId, filterList) {
   autocomplete(document.getElementById(inputId), copyJsonData(filterList));
 }
 
+// todo: will highlight index that is hovered + selected by key stroke, should only have 1 highlighted at a time
 // todo: auto complete label doesn't slide back down if empty input
 // todo: should show potential options if input is empty
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
@@ -51,6 +52,12 @@ function autocomplete(inputElement, options) {
           this.dispatchEvent(createSelectOptionEvent(this.getElementsByTagName('input')[0].value, inputElement.id));
           inputElement.value = null;
           closeAllLists();
+        });
+        selectOptionContainer.on('mouseover', () => {
+          // todo: set current focus to the highlighted item
+          let x = document.getElementById(inputElement.id + 'autocomplete-list');
+          if (x) x = x.getElementsByTagName('div');
+          removeActive(x);
         });
 
         $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
