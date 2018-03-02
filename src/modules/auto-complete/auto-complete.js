@@ -26,6 +26,7 @@ export function populateAutoComplete(inputId, filterList) {
   autocomplete(document.getElementById(inputId), copyJsonData(filterList));
 }
 
+// todo: auto complete label doesn't slide back down if empty input
 // todo: should show potential options if input is empty
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
 function autocomplete(inputElement, options) {
@@ -48,7 +49,7 @@ function autocomplete(inputElement, options) {
 
         selectOptionContainer.click(function() {
           this.dispatchEvent(createSelectOptionEvent(this.getElementsByTagName('input')[0].value, inputElement.id));
-          inputElement.value = '';
+          inputElement.value = null;
           closeAllLists();
         });
 

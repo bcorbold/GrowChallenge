@@ -54,7 +54,7 @@
 }
 
 .open-nav {
-  width: calc(100vw - 56px);
+  width: calc(40em);
 }
 
 .closed-nav {
@@ -65,7 +65,7 @@
 @media screen and (max-width: $mobile-width-breakpoint) {
   .side-nav {
     padding: 8px 0;
-    background-color: red;
+    //background-color: red;
   }
 
   .open-nav {
@@ -81,6 +81,14 @@
 @media screen and (max-width: $tablet-width-breakpoint) and (min-width: $mobile-width-breakpoint + 1px) {
   .side-nav {
     padding: 8px 0;
-    background-color: blue;
+    //background-color: blue;
+  }
+
+  .open-nav {
+    width: calc(30em);
+  }
+
+  .closed-nav {
+    width: 0;
   }
 }
