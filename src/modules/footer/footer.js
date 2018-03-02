@@ -1,3 +1,4 @@
+require('./_footer.theme.scss');
 require('./footer.scss');
 
 import $ from 'jquery';

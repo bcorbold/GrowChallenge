@@ -1,3 +1,4 @@
+require('./_transaction-list.theme.scss');
 require('./transaction-list.scss');
 
 import $ from 'jquery';

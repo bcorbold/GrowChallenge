@@ -1,3 +1,4 @@
+require('./_side-nav.theme.scss');
 require('./side-nav.scss');
 
 import $ from 'jquery';
@@ -15,19 +16,20 @@ const accountFilterContainerId = 'accountAutoComplete';
 const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
 
+// todo: add close button back
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
-                            <div id="selected-accounts" class="selected-accounts-list"></div>
-                            
                             <div id="${categoryFilterContainerId}" class="category-select"></div>
+                            
+                            <div id="selected-accounts" class="selected-accounts-list"></div>
                             <div id="selected-categories" class="categories-accounts-list"></div>
                             
                             <div id="filterButtons" class="filter-buttons">
-                              <button id="submitFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                                Submit
-                              </button>
                               <button id="resetFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Reset
+                              </button>
+                              <button id="submitFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                                Apply
                               </button>
                             </div>
                           </div>`;

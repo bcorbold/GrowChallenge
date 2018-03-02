@@ -1,4 +1,5 @@
 require('./style.scss');
+require('./theme.scss');
 
 import $ from 'jquery';
 

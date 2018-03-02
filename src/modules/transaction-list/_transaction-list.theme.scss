@@ -1,0 +1,22 @@
+@import '../../theme';
+
+.transactions-container {
+  background-color: $background;
+
+  .date-header {
+    background-color: $header-background;
+    color: $primary-light;
+  }
+
+  .transaction-card {
+    background-color: $card-background;
+
+    .account-running-balance {
+      color: $primary;
+    }
+  }
+
+  .no-transactions {
+    color: white;
+  }
+}

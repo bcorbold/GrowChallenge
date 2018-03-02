@@ -1,4 +1,5 @@
 require('./header.scss');
+require('./_header.theme.scss');
 
 import $ from 'jquery';
 

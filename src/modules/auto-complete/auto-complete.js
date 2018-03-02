@@ -1,3 +1,4 @@
+require('./_auto-complete.theme.scss');
 require('./auto-complete.scss');
 
 import $ from 'jquery';
