@@ -10,3 +10,7 @@ $header-background: #212121; // grey 900
 html {
   background-color: $header-background;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary-light;
+}

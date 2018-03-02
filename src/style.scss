@@ -30,10 +30,13 @@ html {
   }
 }
 
-/* default styles */
-h1 {}
-/* todo: @media doesn't work on iOS + chrome */
-/* Take these styles if screen width > 800px */
-@media screen and (min-width: 800px) {
-    h1 {}
+// addresses the background of the bar itself. It is usually covered by the other elements
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+// addresses the draggable scrolling element that resizes depending on the size of the scrollable element
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  min-height: 20px;
 }
