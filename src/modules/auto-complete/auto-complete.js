@@ -1,122 +1,111 @@
+require('./_auto-complete.theme.scss');
 require('./auto-complete.scss');
 
 import $ from 'jquery';
+import { createSelectOptionEvent } from '../events';
+import { copyJsonData } from '../helpers';
+
+const keyDown = 40;
+const keyUp = 38;
+const keyEnter = 13;
 
 export function createAutoCompleteInput(parentId, inputId, label) {
   const template = `
-    <form autocomplete="off" style="position: relative; display: inline-block;" id="${inputId}Form">
+    <form autocomplete="off" class="auto-complete-form" id="${inputId}Form">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="${inputId}">
         <label class="mdl-textfield__label" for="${inputId}">${label}</label>
       </div>
     </form>
-    <i class="material-icons auto-complete-filter-add" id="${inputId}Button">add</i>
 `;
 
   $(`#${parentId}`).append(template);
 }
 
 export function populateAutoComplete(inputId, filterList) {
-  autocomplete(document.getElementById(inputId), filterList);
+  autocomplete(document.getElementById(inputId), copyJsonData(filterList));
 }
 
 // todo: should show potential options if input is empty
-// todo: go through all of this and clean up
-// todo: match based on contents of string instead of just matching the start
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
-function autocomplete(inp, arr) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  let currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
-    let a, b, i, val = this.value;
-    /*close any already open lists of autocompleted values*/
+function autocomplete(inputElement, options) {
+  let currentFocus = -1;
+
+  // filter on input
+  inputElement.addEventListener('input', () => {
+    const inputValue = inputElement.value;
+    const inputId = inputElement.id;
     closeAllLists();
-    if (!val) { return false;}
-    currentFocus = -1;
-    /*create a DIV element that will contain the items (values):*/
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    /*append the DIV element as a child of the autocomplete container:*/
-    this.parentNode.appendChild(a);
-    /*for each item in the array...*/
-    for (i = 0; i < arr.length; i++) {
-      /*check if the item starts with the same letters as the text field value:*/
-      if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-        /*create a DIV element for each matching element:*/
-        b = document.createElement("DIV");
-        /*make the matching letters bold:*/
-        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += arr[i].substr(val.length);
-        /*insert a input field that will hold the current array item's value:*/
-        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        /*execute a function when someone clicks on the item value (DIV element):*/
-        b.addEventListener("click", function(e) {
-          /*insert the value for the autocomplete text field:*/
-          inp.value = this.getElementsByTagName("input")[0].value;
-          /*close the list of autocompleted values,
-          (or any other open lists of autocompleted values:*/
+
+    if (!inputValue) { return false;}
+
+    $(`#${inputId}`).parent().append(`<di id="${inputId}autocomplete-list" class="autocomplete-items"></div>`);
+
+    for (let i = 0; i < options.length; i++) {
+      const matchedIndex = options[i].toUpperCase().indexOf(inputValue.toUpperCase());
+      if (matchedIndex !== -1) {
+        const selectOptionContainer = createAutoCompleteOptionTemplate(matchedIndex, options[i], inputValue);
+
+        selectOptionContainer.click(function() {
+          this.dispatchEvent(createSelectOptionEvent(this.getElementsByTagName('input')[0].value, inputElement.id));
+          inputElement.value = '';
           closeAllLists();
         });
-        a.appendChild(b);
+
+        $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
       }
     }
   });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
-    let x = document.getElementById(this.id + "autocomplete-list");
-    if (x) x = x.getElementsByTagName("div");
-    if (e.keyCode == 40) {
-      /*If the arrow DOWN key is pressed,
-      increase the currentFocus variable:*/
+
+  // highlight selections based on key presses
+  inputElement.addEventListener('keydown', function(e) {
+    let x = document.getElementById(this.id + 'autocomplete-list');
+    if (x) x = x.getElementsByTagName('div');
+    if (e.keyCode === keyDown) {
       currentFocus++;
-      /*and and make the current item more visible:*/
       addActive(x);
-    } else if (e.keyCode == 38) { //up
-      /*If the arrow UP key is pressed,
-      decrease the currentFocus variable:*/
+    } else if (e.keyCode === keyUp) {
       currentFocus--;
-      /*and and make the current item more visible:*/
       addActive(x);
-    } else if (e.keyCode == 13) {
-      /*If the ENTER key is pressed, prevent the form from being submitted,*/
-      e.preventDefault();
+    } else if (e.keyCode === keyEnter) {
+      e.preventDefault(); // stops from submitting the form
       if (currentFocus > -1) {
-        /*and simulate a click on the "active" item:*/
-        if (x) x[currentFocus].click();
+        if (x) x[currentFocus].click(); // simulate click on item
       }
     }
   });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("autocomplete-active");
+
+  // active being the element that is highlighted
+  function addActive(elementToCheck) {
+    if (!elementToCheck) return false;
+    removeActive(elementToCheck);
+    if (currentFocus >= elementToCheck.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (elementToCheck.length - 1);
+    elementToCheck[currentFocus].classList.add('autocomplete-active');
   }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (let i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
+
+  function removeActive(elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.remove('autocomplete-active');
     }
   }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    let x = document.getElementsByClassName("autocomplete-items");
-    for (let i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-        x[i].parentNode.removeChild(x[i]);
+
+  function closeAllLists(selectedElement) {
+    let autoCompleteItems = document.getElementsByClassName('autocomplete-items');
+    for (let i = 0; i < autoCompleteItems.length; i++) {
+      if (selectedElement !== autoCompleteItems[i] && selectedElement !== inputElement) {
+        autoCompleteItems[i].parentNode.removeChild(autoCompleteItems[i]);
       }
     }
   }
-  /*execute a function when someone clicks in the document:*/
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
+
+  function createAutoCompleteOptionTemplate(matchedIndex, option, inputValue) {
+    if (matchedIndex === 0) {
+       return $(`<div><strong>${option.substr(0, inputValue.length)}</strong>${option.substr(inputValue.length)}<input type="hidden" value="${option}"></div>`);
+    }
+    return $(`<div>${option.substr(0, matchedIndex)}<strong>${option.substr(matchedIndex, inputValue.length)}</strong>${option.substr(matchedIndex + inputValue.length)}<input type="hidden" value="${option}"></div>`);
+  }
+
+  document.addEventListener('click', event => closeAllLists(event.target));
+  document.getElementById('filterSideNav').addEventListener('click', (event) => closeAllLists(event.target));
 }

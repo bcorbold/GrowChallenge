@@ -1,0 +1,31 @@
+@import '../../theme';
+.auto-complete-form {
+  input {
+    font-weight: 300;
+    border-color: white; // todo: shows the top corners on iOS
+  }
+
+  .mdl-textfield {
+    label {
+      color: white;
+    }
+  }
+}
+
+.autocomplete-items {
+  background-color: $card-background;
+
+  div {
+    border-bottom: 1px solid $header-background;
+  }
+
+  div:hover {
+    background-color: $primary;
+    color: white;
+  }
+
+  .autocomplete-active {
+    background-color: $primary !important;
+    color: white;
+  }
+}

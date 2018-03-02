@@ -3,4 +3,49 @@
   margin: 0;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+
+  .date-header {
+    width: 100%;
+    padding: 4px 16px;
+    margin-top: 4px;
+
+    p { margin: 0; }
+  }
+
+  .transaction-card {
+    width: 100%;
+    margin-bottom: 2px;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: row;
+
+    .transaction-info {
+      flex-grow: 1;
+      margin-right: 16px;
+
+      .account-name {
+        margin: 0;
+        font-weight: 600;
+      }
+    }
+
+    .transaction-values {
+      text-align: right;
+
+      .transaction-amount {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .account-running-balance {
+        margin: 0;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .no-transactions {
+    margin: 16px;
+    font-weight: 300;
+  }
 }
