@@ -2,7 +2,6 @@
 
 .transactions-container {
   padding: 0;
-  margin: 0 15%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 
@@ -49,11 +48,5 @@
   .no-transactions {
     margin: 16px;
     font-weight: 300;
-  }
-}
-
-@media screen and (max-width: $tablet-width-breakpoint){
-  .transactions-container {
-    margin: 0;
   }
 }

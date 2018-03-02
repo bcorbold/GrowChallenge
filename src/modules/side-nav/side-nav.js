@@ -44,8 +44,10 @@ export function createSideNav() {
   document.addEventListener('selectOption', (event) => {
     if (event.detail.autoCompleteId === accountAutoCompleteId) {
       addAccountFilterChip(event.detail.value);
+      $(`#${accountAutoCompleteId}Form`).children().removeClass('is-dirty');
     } else if (event.detail.autoCompleteId === categoryAutoCompleteId) {
       addCategoryFilterChip(event.detail.value);
+      $(`#${categoryAutoCompleteId}Form`).children().removeClass('is-dirty');
     }
   });
   document.getElementById('openNav').addEventListener('click', (event) => {

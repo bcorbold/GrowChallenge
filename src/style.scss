@@ -5,6 +5,14 @@
 $mobile-width-breakpoint: 450px;
 $tablet-width-breakpoint: 900px;
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+}
+
 * {
   box-sizing: inherit;
   text-rendering: optimizeLegibility;
@@ -30,13 +38,12 @@ html {
   }
 }
 
-// addresses the background of the bar itself. It is usually covered by the other elements
-::-webkit-scrollbar {
-  width: 6px;
+body {
+  padding: 0 15%;
 }
 
-// addresses the draggable scrolling element that resizes depending on the size of the scrollable element
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  min-height: 20px;
+@media screen and (max-width: $tablet-width-breakpoint){
+  body {
+    padding: 0;
+  }
 }
