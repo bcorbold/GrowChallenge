@@ -2,6 +2,11 @@
 .auto-complete-form {
   position: relative;
   display: inline-block;
+  width: 100%;
+
+  .mdl-textfield {
+    width: 100%;
+  }
 }
 
 .autocomplete-items {

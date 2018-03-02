@@ -67,7 +67,7 @@ function autocomplete(inputElement, options) {
     } else if (e.keyCode === keyUp) {
       currentFocus--;
       addActive(x);
-    } else if (e.keyCode === keyEnter) { // todo: add the input to the selected list if valid
+    } else if (e.keyCode === keyEnter) {
       e.preventDefault(); // stops from submitting the form
       if (currentFocus > -1) {
         if (x) x[currentFocus].click(); // simulate click on item

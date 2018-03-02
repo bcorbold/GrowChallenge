@@ -33,17 +33,12 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                             </div>
                           </div>`;
 
-// todo: only display categories that transactions have?
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
-  // todo: clean up all these event listeners
   // todo: change these width style changes to classes so they can be changed using @media
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
-  document.getElementById(`${accountAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
-
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  document.getElementById(`${categoryAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
 
   document.addEventListener('selectOption', (event) => {
     if (event.detail.autoCompleteId === accountAutoCompleteId) {
@@ -52,8 +47,6 @@ export function createSideNav() {
       addCategoryFilterChip(event.detail.value);
     }
   });
-
-
   document.getElementById('openNav').addEventListener('click', (event) => {
     openNav();
     event.stopPropagation();
@@ -74,7 +67,6 @@ export function createSideNav() {
   });
   document.getElementById('filterSideNav').addEventListener('click', (event) => event.stopPropagation());
   document.addEventListener('click', ()  => closeNav());
-
 }
 
 function openNav() {
