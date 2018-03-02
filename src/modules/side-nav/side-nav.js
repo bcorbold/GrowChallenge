@@ -2,7 +2,6 @@ require('./side-nav.scss');
 
 import $ from 'jquery';
 import _ from 'lodash';
-
 import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
 
 let filteredAccounts = [];
@@ -33,43 +32,40 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
                             </div>
                           </div>`;
 
-// todo: only display categories that transactions have?
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
+  // todo: change these width style changes to classes so they can be changed using @media
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
-  document.getElementById(`${accountAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
-
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  document.getElementById(`${categoryAutoCompleteId}Form`).style.width = 'calc(100% - 32px)';
 
+  document.addEventListener('selectOption', (event) => {
+    if (event.detail.autoCompleteId === accountAutoCompleteId) {
+      addAccountFilterChip(event.detail.value);
+    } else if (event.detail.autoCompleteId === categoryAutoCompleteId) {
+      addCategoryFilterChip(event.detail.value);
+    }
+  });
   document.getElementById('openNav').addEventListener('click', (event) => {
     openNav();
     event.stopPropagation();
   });
-  document.getElementById(`${accountAutoCompleteId}Button`).addEventListener('click', () => addAccountFilterChip());
-  document.getElementById(`${categoryAutoCompleteId}Button`).addEventListener('click', () => addCategoryFilterChip());
-
   document.getElementById('submitFiltersButton').addEventListener('click', () => closeNav());
   document.getElementById('resetFiltersButton').addEventListener('click', () => {
     filteredAccounts = [];
     filteredCategories = [];
-
     const accountsChipList = document.getElementById('selected-accounts');
     while (accountsChipList.firstChild) {
       accountsChipList.removeChild(accountsChipList.firstChild);
     }
-
     const categoriesChipList = document.getElementById('selected-categories');
     while (categoriesChipList.firstChild) {
       categoriesChipList.removeChild(categoriesChipList.firstChild);
     }
     closeNav();
   });
-
   document.getElementById('filterSideNav').addEventListener('click', (event) => event.stopPropagation());
-  document.addEventListener("click", ()  => closeNav());
-
+  document.addEventListener('click', ()  => closeNav());
 }
 
 function openNav() {
@@ -80,9 +76,7 @@ function closeNav() {
   document.getElementById('filterSideNav').style.width = '0';
 }
 
-function addAccountFilterChip() {
-  const accountName = document.getElementById(`${accountAutoCompleteId}`).value;
-
+function addAccountFilterChip(accountName) {
   if (accountName !== null && accountName !== undefined && accountName !== '' && !filteredAccounts.includes(accountName)) {
     filteredAccounts.push(accountName);
     const chip = createChip(accountName);
@@ -96,9 +90,7 @@ function addAccountFilterChip() {
   }
 }
 
-function addCategoryFilterChip() {
-  const category = document.getElementById(`${categoryAutoCompleteId}`).value;
-
+function addCategoryFilterChip(category) {
   if (category !== null && category !== undefined && category !== '' && !filteredCategories.includes(category)) {
     filteredCategories.push(category);
     const chip = createChip(category);

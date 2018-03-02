@@ -1,14 +1,12 @@
 // todo: make this compliant with material design
-
 .auto-complete-form {
   position: relative;
   display: inline-block;
-}
+  width: 100%;
 
-
-.auto-complete-filter-add {
-  cursor: pointer;
-  margin-left: 8px;
+  .mdl-textfield {
+    width: 100%;
+  }
 }
 
 .autocomplete-items {
@@ -16,25 +14,23 @@
   border: none;
   background-color: #E0E0E0; // grey-300
   z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
   right: 0;
-}
 
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid #d4d4d4;
-}
+  div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #d4d4d4;
+  }
 
-.autocomplete-items div:hover {
-  background-color: #009688;
-  color: #ffffff;
-}
+  div:hover {
+    background-color: #009688;
+    color: #ffffff;
+  }
 
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: #009688 !important;
-  color: #ffffff;
+  .autocomplete-active {
+    background-color: #009688 !important;
+    color: #ffffff;
+  }
 }

@@ -1,6 +1,8 @@
 require('./auto-complete.scss');
 
 import $ from 'jquery';
+import { createSelectOptionEvent } from '../events';
+import { copyJsonData } from '../helpers';
 
 const keyDown = 40;
 const keyUp = 38;
@@ -14,55 +16,42 @@ export function createAutoCompleteInput(parentId, inputId, label) {
         <label class="mdl-textfield__label" for="${inputId}">${label}</label>
       </div>
     </form>
-    <i class="material-icons auto-complete-filter-add" id="${inputId}Button">add</i>
 `;
 
   $(`#${parentId}`).append(template);
 }
 
 export function populateAutoComplete(inputId, filterList) {
-  autocomplete(document.getElementById(inputId), filterList);
+  autocomplete(document.getElementById(inputId), copyJsonData(filterList));
 }
 
 // todo: should show potential options if input is empty
-// todo: add to selection on click of option/enter stroke if input is valid
-// todo: show error colour if invalid input
-// todo: go through all of this and clean up
-// todo: match based on contents of string instead of just matching the start
-
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
 function autocomplete(inputElement, options) {
+  let currentFocus = -1;
 
   // filter on input
-  inputElement.addEventListener('input', (event) => {
-    let inputValue = inputElement.value;
+  inputElement.addEventListener('input', () => {
+    const inputValue = inputElement.value;
+    const inputId = inputElement.id;
     closeAllLists();
 
     if (!inputValue) { return false;}
-    let currentFocus = -1;
 
-    // todo: can do this in a better way?
-    // build div that will contain all the potential values
-    const optionsContainer = document.createElement('DIV');
-    optionsContainer.setAttribute('id',`${inputElement.id}autocomplete-list`);
-    optionsContainer.setAttribute('class', 'autocomplete-items');
-    inputElement.parentNode.appendChild(optionsContainer);
+    $(`#${inputId}`).parent().append(`<di id="${inputId}autocomplete-list" class="autocomplete-items"></div>`);
 
     for (let i = 0; i < options.length; i++) {
-      // todo: right now just compares the start, switch to regex for contents of string
-      if (options[i].substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()) {
-        // build up option div
-        const selectOptionContainer = document.createElement('DIV');
-        selectOptionContainer.innerHTML = `<strong>${options[i].substr(0, inputValue.length)}</strong>${options[i].substr(inputValue.length)}
-                       <input type="hidden" value="${options[i]}">`;
+      const matchedIndex = options[i].toUpperCase().indexOf(inputValue.toUpperCase());
+      if (matchedIndex !== -1) {
+        const selectOptionContainer = createAutoCompleteOptionTemplate(matchedIndex, options[i], inputValue);
 
-        // handle option being clicked
-        selectOptionContainer.addEventListener('click', function(e) {
-          inputElement.value = this.getElementsByTagName('input')[0].value;
+        selectOptionContainer.click(function() {
+          this.dispatchEvent(createSelectOptionEvent(this.getElementsByTagName('input')[0].value, inputElement.id));
+          inputElement.value = '';
           closeAllLists();
         });
 
-        optionsContainer.appendChild(selectOptionContainer);
+        $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
       }
     }
   });
@@ -77,7 +66,7 @@ function autocomplete(inputElement, options) {
     } else if (e.keyCode === keyUp) {
       currentFocus--;
       addActive(x);
-    } else if (e.keyCode === keyEnter) { // todo: add the input to the selected list if valid
+    } else if (e.keyCode === keyEnter) {
       e.preventDefault(); // stops from submitting the form
       if (currentFocus > -1) {
         if (x) x[currentFocus].click(); // simulate click on item
@@ -109,7 +98,13 @@ function autocomplete(inputElement, options) {
     }
   }
 
-  // todo: this gets blocked because the nav stops click event from bubbling up
-  document.addEventListener("click", event => closeAllLists(event.target));
+  function createAutoCompleteOptionTemplate(matchedIndex, option, inputValue) {
+    if (matchedIndex === 0) {
+       return $(`<div><strong>${option.substr(0, inputValue.length)}</strong>${option.substr(inputValue.length)}<input type="hidden" value="${option}"></div>`);
+    }
+    return $(`<div>${option.substr(0, matchedIndex)}<strong>${option.substr(matchedIndex, inputValue.length)}</strong>${option.substr(matchedIndex + inputValue.length)}<input type="hidden" value="${option}"></div>`);
+  }
+
+  document.addEventListener('click', event => closeAllLists(event.target));
   document.getElementById('filterSideNav').addEventListener('click', (event) => closeAllLists(event.target));
 }
