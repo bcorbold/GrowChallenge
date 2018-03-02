@@ -66,8 +66,11 @@ export function createSideNav() {
     }
     closeNav();
   });
+  // todo: safari on iOs doesn't emit any of these
   document.getElementById('filterSideNav').addEventListener('click', (event) => event.stopPropagation());
+  document.getElementById('filterSideNav').addEventListener('touchstart', (event) => event.stopPropagation());
   document.addEventListener('click', ()  => closeNav());
+  document.addEventListener('touchstart', () => closeNav());
 }
 
 function openNav() {
