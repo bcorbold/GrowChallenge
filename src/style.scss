@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700');
 @import './theme.scss';
 
+// todo: verify these with material design
+$mobile-width-breakpoint: 450px;
+$tablet-width-breakpoint: 840px;
+
 * {
   box-sizing: inherit;
   text-rendering: optimizeLegibility;

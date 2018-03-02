@@ -1,4 +1,6 @@
+@import '../../style';
 
+// default to desktop styles
 .side-nav {
   height: 100%;
   width: 0; // change width to show/hide
@@ -51,10 +53,34 @@
   }
 }
 
-// todo: still have to do responsive layout
-// On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size)
-@media screen and (max-height: 450px) {
+.open-nav {
+  width: calc(100vw - 56px);
+}
+
+.closed-nav {
+  width: 0;
+}
+
+// mobile
+@media screen and (max-width: $mobile-width-breakpoint) {
   .side-nav {
-    padding-top: 16px;
+    padding: 8px 0;
+    background-color: red;
+  }
+
+  .open-nav {
+    width: calc(100vw - 56px);
+  }
+
+  .closed-nav {
+    width: 0;
+  }
+}
+
+// tablet
+@media screen and (max-width: $tablet-width-breakpoint) and (min-width: $mobile-width-breakpoint + 1px) {
+  .side-nav {
+    padding: 8px 0;
+    background-color: blue;
   }
 }

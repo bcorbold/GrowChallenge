@@ -3,9 +3,9 @@
 .mobile-footer {
   background-color: $header-background;
   color: white;
-  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
+  -moz-box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
+  box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
 
   .total-account-balance {
     color: $primary-light;

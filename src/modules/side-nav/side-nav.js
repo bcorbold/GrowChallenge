@@ -17,7 +17,7 @@ const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
 
 // todo: add close button back
-const sideNaveTemplate = `<div id="filterSideNav" class="side-nav">
+const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
                             <div id="${categoryFilterContainerId}" class="category-select"></div>
                             
@@ -73,12 +73,17 @@ export function createSideNav() {
   document.addEventListener('touchstart', () => closeNav());
 }
 
+// todo: these are getting called twice, look into better event subscriptions
 function openNav() {
-  document.getElementById('filterSideNav').style.width = 'calc(100vw - 56px)';
+  const filterNav = $('#filterSideNav');
+  filterNav.removeClass('closed-nav');
+  filterNav.addClass('open-nav');
 }
 
 function closeNav() {
-  document.getElementById('filterSideNav').style.width = '0';
+  const filterNav = $('#filterSideNav');
+  filterNav.removeClass('open-nav');
+  filterNav.addClass('closed-nav');
 }
 
 function addAccountFilterChip(accountName) {
