@@ -1,43 +1,23 @@
 require('./transaction-list.scss');
 
 import $ from 'jquery';
-
-import { formatDollarAmount } from '../helpers';
+import { copyJsonData, formatDollarAmount } from '../helpers';
+import { getFilteredAccountNames, getFilteredCategories } from '../side-nav/side-nav';
 
 const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
-let storedTransactionList = []; // todo: can store it here for re-ordering
-let storedAccountList = [];
+let fullTransactionList = [];
+let fullAccountList = [];
+let renderedTransactionList = [];
 
-export function createTransactionList() {
-  $('body').append(emptyTemplate);
-}
+function setTransactionList(transactions) { fullTransactionList = copyJsonData(transactions); }
 
-// todo: should display something to tell the user if there are no transactions matching their filters
-export function renderTransactionList(transactionList, accountList) {
-  const transactionListContainer = $('#transactionsContainer');
-  storedTransactionList = transactionList;
-  storedAccountList = accountList;
+function setAccountList(accounts) { fullAccountList = copyJsonData(accounts); }
 
-  if (transactionListContainer.children().length !== 0) {
-    transactionListContainer.empty();
-  }
+function createDateHeader(date) { return `<div class="date-header"><p>${date}</p></div>`; }
 
-  transactionList.forEach((transaction, i) => {
-    if (i === 0 || transaction.transactionDate !== transactionList[i-1].transactionDate) {
-      transactionListContainer.append(createDateHeader(transaction.transactionDate))
-    }
-    const accountName = accountList.filter(account => account.accountId === transaction.accountId)[0];
-    transactionListContainer.append(createTransactionRowTemplate(transaction, accountName));
-  });
-}
-
-export function reverseOrder() {
-  storedTransactionList = storedTransactionList.reverse();
-  renderTransactionList(storedTransactionList, storedAccountList);
-}
-
-function createDateHeader(date) {
-  return `<div class="date-header"><p>${date}</p></div>`;
+function reverseOrder() {
+  renderedTransactionList = renderedTransactionList.reverse();
+  renderTransactionList(renderedTransactionList);
 }
 
 function createTransactionRowTemplate(transaction, account) {
@@ -51,5 +31,61 @@ function createTransactionRowTemplate(transaction, account) {
                 <p class="account-running-balance">${formatDollarAmount(transaction.runningBalance)}</p>
               </div>
           </div>`;
+}
+
+export function createTransactionList() { $('body').append(emptyTemplate); }
+
+export function initTransactionList(transactions, accounts) {
+  setTransactionList(transactions);
+  setAccountList(accounts);
+  renderTransactionList(fullTransactionList);
+
+  // todo: could we add everything to the dom, and then show/hide elements based on filters?
+  document.getElementById('submitFiltersButton').addEventListener('click', () => {
+    let filteredAccountNames = getFilteredAccountNames();
+    let filteredCategories = getFilteredCategories();
+
+    if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
+      renderTransactionList(fullTransactionList);
+    } else {
+      let filteredTransactionList = copyJsonData(fullTransactionList);
+      if (filteredAccountNames.length !== 0) {
+        const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
+        filteredTransactionList = filteredTransactionList.filter(transaction => {
+          return filteredAccountList.find(account => account.accountId === transaction.accountId);
+        });
+      }
+
+      if (filteredCategories.length !== 0) {
+        filteredTransactionList = filteredTransactionList.filter(transaction => filteredCategories.includes(transaction.category));
+      }
+
+      renderTransactionList(filteredTransactionList);
+    }
+  });
+  document.getElementById('resetFiltersButton').addEventListener('click', () => renderTransactionList(fullTransactionList));
+  document.getElementById('dateSortButton').addEventListener('click', () => reverseOrder());
+}
+
+export function renderTransactionList(transactions) {
+  const transactionListContainer = $('#transactionsContainer');
+
+  if (transactionListContainer.children().length !== 0) {
+    transactionListContainer.empty();
+  }
+
+  if (transactions.length !== 0) {
+    transactions.forEach((transaction, i) => {
+      if (i === 0 || transaction.transactionDate !== transactions[i-1].transactionDate) {
+        transactionListContainer.append(createDateHeader(transaction.transactionDate))
+      }
+      const accountName = fullAccountList.filter(account => account.accountId === transaction.accountId)[0];
+      transactionListContainer.append(createTransactionRowTemplate(transaction, accountName));
+    });
+  } else {
+    // todo: should display something to tell the user if there are no transactions matching their filters
+  }
+
+  renderedTransactionList = copyJsonData(transactions);
 }
 
