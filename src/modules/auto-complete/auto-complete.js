@@ -1,9 +1,8 @@
-import { copyJsonData } from '../helpers';
-
 require('./auto-complete.scss');
 
 import $ from 'jquery';
 import { createSelectOptionEvent } from '../events';
+import { copyJsonData } from '../helpers';
 
 const keyDown = 40;
 const keyUp = 38;

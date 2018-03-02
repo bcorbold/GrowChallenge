@@ -2,7 +2,6 @@ require('./side-nav.scss');
 
 import $ from 'jquery';
 import _ from 'lodash';
-
 import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
 
 let filteredAccounts = [];
