@@ -7,6 +7,8 @@ $background: #616161; // grey 700
 $panel-background: #424242; // grey 800
 $header-background: #212121; // grey 900
 
+$shadow-color: rgba(33, 33, 33, 0.8);
+
 ::-webkit-scrollbar-thumb {
   background-color: $primary-light;
 }
@@ -14,4 +16,3 @@ $header-background: #212121; // grey 900
 html {
   background-color: $header-background;
 }
-

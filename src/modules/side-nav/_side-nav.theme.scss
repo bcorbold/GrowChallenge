@@ -2,9 +2,9 @@
 
 .side-nav {
   background-color: $panel-background;
-  -webkit-box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
-  -moz-box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
-  box-shadow: 0 0 20px rgba(33, 33, 33, 0.8);
+  -webkit-box-shadow: 0 0 20px $shadow-color;
+  -moz-box-shadow: 0 0 20px $shadow-color;
+  box-shadow: 0 0 20px $shadow-color;
 
   .categories-accounts-list {
     .mdl-chip {
