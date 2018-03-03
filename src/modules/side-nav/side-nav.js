@@ -41,15 +41,17 @@ export function createSideNav() {
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
 
-  document.addEventListener('selectOption', (event) => {
-    if (event.detail.autoCompleteId === accountAutoCompleteId) {
-      addAccountFilterChip(event.detail.value);
+  $(document).on('selectOption', (event, value, id) => {
+    if (id === accountAutoCompleteId) {
+      addAccountFilterChip(value);
       $(`#${accountAutoCompleteId}Form`).children().removeClass('is-dirty');
-    } else if (event.detail.autoCompleteId === categoryAutoCompleteId) {
-      addCategoryFilterChip(event.detail.value);
+    } else if (id === categoryAutoCompleteId) {
+      addCategoryFilterChip(value);
       $(`#${categoryAutoCompleteId}Form`).children().removeClass('is-dirty');
     }
   });
+
+
   document.getElementById('openNav').addEventListener('click', (event) => {
     openNav();
     event.stopPropagation();
