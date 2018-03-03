@@ -11,12 +11,11 @@ let accounts;
 let filteredCategories = [];
 let categories;
 
-const accountAutoCompleteId = 'accountAutoCompleteInput';
 const accountFilterContainerId = 'accountAutoComplete';
-const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
+const accountAutoCompleteId = `${accountFilterContainerId}Input`;
+const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
 
-// todo: add close button back
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
                               <i class="material-icons">close</i>
@@ -40,11 +39,9 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
-  // todo: change these width style changes to classes so they can be changed using @media
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
 
-  // todo: safari on iOs doesn't emit any of these
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
   sideNav.on('touchstart', (event) => event.stopPropagation());

@@ -27,8 +27,15 @@
       margin-right: 16px;
 
       .account-name {
-        margin: 0;
         font-weight: 600;
+      }
+
+      .transaction-description {
+        line-height: 16px;
+      }
+
+      p {
+        margin: 0;
       }
     }
 

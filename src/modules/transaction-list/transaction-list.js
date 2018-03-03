@@ -21,11 +21,12 @@ function reverseOrder() {
   renderTransactionList(renderedTransactionList);
 }
 
+// todo: play around with material icons for transaction type
 function createTransactionRowTemplate(transaction, account) {
   return `<div class="transaction-card">
               <div class="transaction-info">
                 <p class="account-name">${account.accountName}</p>
-                <i>${transaction.description}</i>
+                <p class="transaction-description"><i>${transaction.description}</i></p>
               </div>
               <div class="transaction-values">
                 <p class="transaction-amount">${formatDollarAmount(transaction.amount)}</p>

@@ -53,7 +53,6 @@ function autocomplete(inputElement, options) {
         });
 
         selectOptionContainer.on('mouseover', () => {
-          // todo: set current focus to the highlighted item
           let x = $(`#${inputId}autocomplete-list`);
           if (x) x = x.children('div');
           removeActive(x);
