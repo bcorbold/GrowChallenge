@@ -73,6 +73,7 @@ export function createSideNav() {
     filteredCategories = [];
     $('#selected-accounts').empty();
     $('#selected-categories').empty();
+    $('#sortArrow').text('arrow_downward');
   });
 }
 
