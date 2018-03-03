@@ -41,8 +41,8 @@ export function initTransactionList(transactions, accounts) {
   setAccountList(accounts);
   renderTransactionList(fullTransactionList);
 
-  // todo: could we add everything to the dom, and then show/hide elements based on filters?
-  document.getElementById('submitFiltersButton').addEventListener('click', () => {
+  // todo: would it be faster to add everything to the dom, and then show/hide elements based on filters?
+  $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
 
@@ -64,8 +64,8 @@ export function initTransactionList(transactions, accounts) {
       renderTransactionList(filteredTransactionList);
     }
   });
-  document.getElementById('resetFiltersButton').addEventListener('click', () => renderTransactionList(fullTransactionList));
-  document.getElementById('dateSortButton').addEventListener('click', () => reverseOrder());
+  $('#resetFiltersButton').click(() => renderTransactionList(fullTransactionList));
+  $('#dateSortButton').click(() => reverseOrder());
 }
 
 export function renderTransactionList(transactions) {

@@ -2,7 +2,6 @@ require('./style.scss');
 require('./theme.scss');
 
 import $ from 'jquery';
-
 import { createFooter, renderTotalBounce } from './modules/footer/footer';
 import { createHeader } from './modules/header/header';
 import { setAccounts, setTransactionCategories } from './modules/side-nav/side-nav';
