@@ -1,4 +1,6 @@
+@import '../../style';
 
+// default to desktop styles
 .side-nav {
   height: 100%;
   width: 0; // change width to show/hide
@@ -7,8 +9,15 @@
   top: 0;
   left: 0;
   overflow-x: hidden;
-  padding: 16px 0 ;
-  transition: 0.3s;
+  padding: 48px 0;
+  transition: 0.25s;
+
+  #closeNav {
+    position: absolute;
+    top: 8px;
+    right:16px;
+    z-index: 1;
+  }
 
   .accounts-select, .category-select {
     margin: 0 16px;
@@ -28,6 +37,7 @@
     }
   }
 
+  // todo: buttons don't grow on Windows 10 + Edge
   .filter-buttons {
     margin: 0 16px;
     position: absolute;
@@ -51,10 +61,40 @@
   }
 }
 
-// todo: still have to do responsive layout
-// On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size)
-@media screen and (max-height: 450px) {
+.open-nav {
+  width: 40em;
+}
+
+.closed-nav {
+  width: 0;
+}
+
+// mobile
+@media screen and (max-width: $mobile-width-breakpoint) {
   .side-nav {
-    padding-top: 16px;
+    padding: 40px 0;
+  }
+
+  .open-nav {
+    width: calc(100vw - 4em);
+  }
+
+  .closed-nav {
+    width: 0;
+  }
+}
+
+// tablet
+@media screen and (max-width: $tablet-width-breakpoint) and (min-width: $mobile-width-breakpoint + 1px) {
+  .side-nav {
+    padding: 8px 0;
+  }
+
+  .open-nav {
+    width: 30em;
+  }
+
+  .closed-nav {
+    width: 0;
   }
 }

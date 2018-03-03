@@ -1,5 +1,4 @@
 
-// todo: this doesn't work if object has functions on it, make/find better way to do this
 export function copyJsonData(data) { return JSON.parse(JSON.stringify(data)); }
 
 export function formatDollarAmount(amount) {

@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700');
 @import './theme.scss';
 
+// todo: verify these with material design
+$mobile-width-breakpoint: 450px;
+$tablet-width-breakpoint: 900px;
+
+// todo: scroll bar styles don't work on Windows 10 + Edge
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+}
+
 * {
   box-sizing: inherit;
   text-rendering: optimizeLegibility;
@@ -26,10 +39,12 @@ html {
   }
 }
 
-/* default styles */
-h1 {}
-/* todo: @media doesn't work on iOS + chrome */
-/* Take these styles if screen width > 800px */
-@media screen and (min-width: 800px) {
-    h1 {}
+body {
+  padding: 0 15%;
+}
+
+@media screen and (max-width: $tablet-width-breakpoint) {
+  body {
+    padding: 0;
+  }
 }
