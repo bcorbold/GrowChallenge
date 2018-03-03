@@ -41,7 +41,14 @@ export function createSideNav() {
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
 
-  $(document).on('selectOption', (event, value, id) => {
+  // todo: safari on iOs doesn't emit any of these
+  const sideNav = $('#filterSideNav');
+  sideNav.click((event) => event.stopPropagation());
+  sideNav.on('touchstart', (event) => event.stopPropagation());
+
+  const jDoc = $(document);
+  jDoc.click(() => closeNav());
+  jDoc.on('selectOption', (event, value, id) => {
     if (id === accountAutoCompleteId) {
       addAccountFilterChip(value);
       $(`#${accountAutoCompleteId}Form`).children().removeClass('is-dirty');
@@ -50,31 +57,19 @@ export function createSideNav() {
       $(`#${categoryAutoCompleteId}Form`).children().removeClass('is-dirty');
     }
   });
+  jDoc.on('touchstart', () => closeNav());
 
-
-  document.getElementById('openNav').addEventListener('click', (event) => {
+  $('#openNav').click((event) => {
     openNav();
     event.stopPropagation();
   });
-  document.getElementById('submitFiltersButton').addEventListener('click', () => closeNav());
-  document.getElementById('resetFiltersButton').addEventListener('click', () => {
+  $('#submitFiltersButton').click(() => closeNav());
+  $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
     filteredCategories = [];
-    const accountsChipList = document.getElementById('selected-accounts');
-    while (accountsChipList.firstChild) {
-      accountsChipList.removeChild(accountsChipList.firstChild);
-    }
-    const categoriesChipList = document.getElementById('selected-categories');
-    while (categoriesChipList.firstChild) {
-      categoriesChipList.removeChild(categoriesChipList.firstChild);
-    }
-    closeNav();
+    $('#selected-accounts').empty();
+    $('#selected-categories').empty();
   });
-  // todo: safari on iOs doesn't emit any of these
-  document.getElementById('filterSideNav').addEventListener('click', (event) => event.stopPropagation());
-  document.getElementById('filterSideNav').addEventListener('touchstart', (event) => event.stopPropagation());
-  document.addEventListener('click', ()  => closeNav());
-  document.addEventListener('touchstart', () => closeNav());
 }
 
 // todo: these are getting called twice, look into better event subscriptions
@@ -94,13 +89,15 @@ function addAccountFilterChip(accountName) {
   if (accountName !== null && accountName !== undefined && accountName !== '' && !filteredAccounts.includes(accountName)) {
     filteredAccounts.push(accountName);
     const chip = createChip(accountName);
-    chip.on('click', function(event) {
-      _.pull(filteredAccounts, event.currentTarget.children[0].childNodes[0].data); // if the template changes so will this
-      event.currentTarget.remove();
+
+    chip.click((event) => {
+      const clickedChip = $(event.currentTarget);
+      _.pull(filteredAccounts, clickedChip.children('.filter-chip-text').text());
+      clickedChip.remove();
     });
 
     $('#selected-accounts').append(chip);
-    document.getElementById(`${accountAutoCompleteId}`).value = '';
+    $(`#${accountAutoCompleteId}`).val('');
   }
 }
 
@@ -108,19 +105,21 @@ function addCategoryFilterChip(category) {
   if (category !== null && category !== undefined && category !== '' && !filteredCategories.includes(category)) {
     filteredCategories.push(category);
     const chip = createChip(category);
-    chip.on('click', function(event) {
-      _.pull(filteredCategories, event.currentTarget.children[0].childNodes[0].data); // if the template changes so will this
-      event.currentTarget.remove();
+
+    chip.click((event) => {
+      const clickedChip = $(event.currentTarget);
+      _.pull(filteredCategories, clickedChip.children('.filter-chip-text').text());
+      clickedChip.remove();
     });
 
     $('#selected-categories').append(chip);
-    document.getElementById(`${categoryAutoCompleteId}`).value = '';
+    $(`#${categoryAutoCompleteId}`).val('');
   }
 }
 
 function createChip(text) {
   return $(`<span class="mdl-chip mdl-chip--deletable">
-                <span class="mdl-chip__text account-filter">${text}</span>
+                <span class="mdl-chip__text filter-chip-text">${text}</span>
                 <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
             </span>`);
 }

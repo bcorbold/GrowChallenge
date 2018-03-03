@@ -2,7 +2,6 @@ require('./_footer.theme.scss');
 require('./footer.scss');
 
 import $ from 'jquery';
-
 import { formatDollarAmount } from '../helpers';
 
 const footerTemplate = '<div class="mobile-footer"><p>Total Balance:</p></div>';

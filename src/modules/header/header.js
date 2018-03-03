@@ -2,7 +2,6 @@ require('./header.scss');
 require('./_header.theme.scss');
 
 import $ from 'jquery';
-
 import { createSideNav } from '../side-nav/side-nav';
 
 const downArrow = 'arrow_downward';
@@ -18,12 +17,12 @@ const headerTemplate =
       </button>
     </div>`;
 
-    export function createHeader() {
+export function createHeader() {
   $('body').append(headerTemplate);
   createSideNav();
 
-  document.getElementById('dateSortButton').addEventListener('click', () => {
-    const arrowElement = document.getElementById('sortArrow');
-    arrowElement.innerText = arrowElement.innerText === downArrow ? upArrow : downArrow;
+  $('#dateSortButton').click(() => {
+    const sortArrow = $('#sortArrow');
+    sortArrow.text(sortArrow.text() === downArrow ? upArrow : downArrow);
   });
 }
