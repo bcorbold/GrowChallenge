@@ -9,8 +9,15 @@
   top: 0;
   left: 0;
   overflow-x: hidden;
-  padding: 16px 0 ;
+  padding: 48px 0;
   transition: 0.25s;
+
+  #closeNav {
+    position: absolute;
+    top: 8px;
+    right:16px;
+    z-index: 1;
+  }
 
   .accounts-select, .category-select {
     margin: 0 16px;
@@ -64,7 +71,7 @@
 // mobile
 @media screen and (max-width: $mobile-width-breakpoint) {
   .side-nav {
-    padding: 8px 0;
+    padding: 40px 0;
   }
 
   .open-nav {

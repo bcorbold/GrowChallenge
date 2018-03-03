@@ -6,6 +6,10 @@
   -moz-box-shadow: 0 0 20px $shadow-color;
   box-shadow: 0 0 20px $shadow-color;
 
+  #closeNav {
+    color: $warn-light;
+  }
+
   .categories-accounts-list {
     .mdl-chip {
       background-color: $primary;

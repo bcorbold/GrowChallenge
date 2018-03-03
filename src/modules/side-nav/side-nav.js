@@ -18,6 +18,9 @@ const categoryFilterContainerId = 'categoryAutoComplete';
 
 // todo: add close button back
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
+                            <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
+                              <i class="material-icons">close</i>
+                            </button>
                             <div id="${accountFilterContainerId}" class="accounts-select"></div>
                             <div id="${categoryFilterContainerId}" class="category-select"></div>
                             
@@ -63,6 +66,7 @@ export function createSideNav() {
     openNav();
     event.stopPropagation();
   });
+  $('#closeNav').click(() => closeNav());
   $('#submitFiltersButton').click(() => closeNav());
   $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
