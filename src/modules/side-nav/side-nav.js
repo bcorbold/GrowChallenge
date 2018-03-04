@@ -45,13 +45,13 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             </div>
                           </div>`;
 
-export function createSideNav(fromDate, toDate) {
+export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  createDateInput(fromDateContainerId, fromDateInput, 'From...', fromDate);
-  createDateInput(toDateContainerId, toDateInput, 'To...', toDate);
+  createDateInput(fromDateContainerId, fromDateInput, 'From...');
+  createDateInput(toDateContainerId, toDateInput, 'To...');
 
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
@@ -157,3 +157,8 @@ export function setTransactionCategories(categoryList) {
 export function getFilteredAccountNames() { return filteredAccounts; }
 
 export function getFilteredCategories() { return filteredCategories; }
+
+export function setDateInputs(earliestDate, latestDate) {
+  $(`#${fromDateInput}`).val(earliestDate);
+  $(`#${toDateInput}`).val(latestDate);
+}
