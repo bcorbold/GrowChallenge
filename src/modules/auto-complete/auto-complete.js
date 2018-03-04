@@ -89,7 +89,8 @@ function autocomplete(inputElement, options) {
     removeActive(elementToCheck);
     if (currentFocus >= elementToCheck.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = (elementToCheck.length - 1);
-    elementToCheck[currentFocus].classList.add('autocomplete-active');
+    if (elementToCheck[currentFocus])
+      elementToCheck[currentFocus].classList.add('autocomplete-active');
   }
 
   function removeActive(elements) {
