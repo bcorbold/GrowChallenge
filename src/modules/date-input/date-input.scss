@@ -1,10 +1,8 @@
 
 .date-input {
   width: 100%;
-  color: white;
 
   .floating-label {
-    color: rgb(0,150,136);
     font-size: 12px;
     top: 4px;
     visibility: visible;
@@ -12,6 +10,5 @@
 
   input {
     font-weight: 300;
-    border-color: white; // todo: Figure out the exact MLD css property to replace
   }
 }
