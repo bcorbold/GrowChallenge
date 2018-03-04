@@ -45,13 +45,13 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             </div>
                           </div>`;
 
-export function createSideNav() {
+export function createSideNav(fromDate, toDate) {
   $('body').append(sideNaveTemplate);
 
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  createDateInput(fromDateContainerId, fromDateInput, 'From...', '2018-03-03'); // todo: init with oldest day
-  createDateInput(toDateContainerId, toDateInput, 'To...'); // todo: init with today
+  createDateInput(fromDateContainerId, fromDateInput, 'From...', fromDate);
+  createDateInput(toDateContainerId, toDateInput, 'To...', toDate);
 
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());

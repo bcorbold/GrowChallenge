@@ -19,8 +19,6 @@ const headerTemplate =
 
 export function createHeader() {
   $('body').append(headerTemplate);
-  createSideNav();
-
   $('#dateSortButton').click(() => {
     const sortArrow = $('#sortArrow');
     sortArrow.text(sortArrow.text() === downArrow ? upArrow : downArrow);

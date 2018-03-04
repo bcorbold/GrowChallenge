@@ -4,7 +4,7 @@ require('./theme.scss');
 import $ from 'jquery';
 import { createFooter, renderTotalBounce } from './modules/footer/footer';
 import { createHeader } from './modules/header/header';
-import { setAccounts, setTransactionCategories } from './modules/side-nav/side-nav';
+import { createSideNav, setAccounts, setTransactionCategories } from './modules/side-nav/side-nav';
 import { createTransactionList, initTransactionList } from './modules/transaction-list/transaction-list'
 
 const transactionUrl = 'https://demo7235469.mockable.io/transactions';
@@ -21,6 +21,9 @@ function fetchTransactions() {
       .then(data => {
         // footer set up
         renderTotalBounce(data.accounts);
+
+        // create side nav with transaction dates
+        createSideNav(data.transactionData.earliestTransactionDate, data.transactionData.latestTransactionDate);
 
         // side nav set up
         setAccounts(data.accounts);
