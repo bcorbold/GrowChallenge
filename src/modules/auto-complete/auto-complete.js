@@ -21,7 +21,7 @@ export function renderAutoCompleteInput(parentId, inputId, label) {
   $(`#${parentId}`).append(template);
 }
 
-export function populateAutoComplete(inputId, filterList) {
+export function initAutoComplete(inputId, filterList) {
   autocomplete($(`#${inputId}`), copyJsonData(filterList));
 }
 
