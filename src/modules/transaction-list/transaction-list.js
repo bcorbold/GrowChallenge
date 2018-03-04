@@ -46,15 +46,19 @@ export function initTransactionList(transactions, accounts) {
   $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
+    let filteredTransactionList = copyJsonData(fullTransactionList);
 
-    // more recent dates are > than older dates
-    const fromDate = new Date(getFromDate());
-    const toDate = new Date(getToDate());
+    const fromDate = Date.parse(getFromDate());
+    const toDate = Date.parse(getToDate());
+
+    filteredTransactionList = filteredTransactionList.filter(transaction => {
+      const transactionDate = Date.parse(transaction.transactionDate);
+      return transactionDate >= fromDate && transactionDate <= toDate;
+    });
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
-      renderTransactionList(fullTransactionList);
+      renderTransactionList(filteredTransactionList);
     } else {
-      let filteredTransactionList = copyJsonData(fullTransactionList);
       if (filteredAccountNames.length !== 0) {
         const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
         filteredTransactionList = filteredTransactionList.filter(transaction => filteredAccountList.find(account => account.accountId === transaction.accountId));

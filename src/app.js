@@ -19,6 +19,7 @@ function fetchTransactions() {
   fetch(transactionUrl)
       .then(response => response.json())
       .then(data => {
+
         // footer set up
         renderTotalBounce(data.accounts);
 
@@ -26,12 +27,13 @@ function fetchTransactions() {
         setAccounts(data.accounts);
         setTransactionCategories(data.categories);
         setDateInputs(data.transactionData.earliestTransactionDate, data.transactionData.latestTransactionDate);
+        $('#resetFiltersButton').click(() => { // todo: is this the correct place to put this?
+          setDateInputs(data.transactionData.earliestTransactionDate, data.transactionData.latestTransactionDate);
+        });
 
         // transactionList set up
         createTransactionList();
-        const headerHeight = $('.mobile-header').outerHeight();
-        const footerHeight = $('.mobile-footer').outerHeight();
-        $('#transactionsContainer').css('height', `calc(100vh - ${headerHeight}px - ${footerHeight}px`);
+        $('#transactionsContainer').css('height', `calc(100vh - ${ $('.mobile-header').outerHeight()}px - ${$('.mobile-footer').outerHeight()}px`);
 
         initTransactionList(data.transactionData.transactions, data.accounts);
       })

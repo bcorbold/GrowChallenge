@@ -8,9 +8,11 @@ import { createDateInput } from '../date-input/date-input';
 
 let filteredAccounts = [];
 let accounts;
-
 let filteredCategories = [];
 let categories;
+let earliestDate;
+let latestDate;
+
 
 const accountFilterContainerId = 'accountAutoComplete';
 const categoryFilterContainerId = 'categoryAutoComplete';
@@ -158,9 +160,9 @@ export function getFilteredAccountNames() { return filteredAccounts; }
 
 export function getFilteredCategories() { return filteredCategories; }
 
-export function setDateInputs(earliestDate, latestDate) {
-  $(`#${fromDateInput}`).val(earliestDate);
-  $(`#${toDateInput}`).val(latestDate);
+export function setDateInputs(fromDate, toDate) {
+  $(`#${fromDateInput}`).val(fromDate);
+  $(`#${toDateInput}`).val(toDate);
 }
 
 export function getFromDate() { return $(`#${fromDateInput}`).val() }
