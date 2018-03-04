@@ -162,3 +162,7 @@ export function setDateInputs(earliestDate, latestDate) {
   $(`#${fromDateInput}`).val(earliestDate);
   $(`#${toDateInput}`).val(latestDate);
 }
+
+export function getFromDate() { return $(`#${fromDateInput}`).val() }
+
+export function getToDate() { return $(`#${toDateInput}`).val()}
