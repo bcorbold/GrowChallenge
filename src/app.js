@@ -12,6 +12,7 @@ const transactionUrl = 'https://demo7235469.mockable.io/transactions';
 $(document).ready(() => {
   fetchTransactions();
   createHeader();
+  createTransactionList();
   createFooter();
 });
 
@@ -32,8 +33,10 @@ function fetchTransactions() {
         });
 
         // transactionList set up
-        createTransactionList();
-        $('#transactionsContainer').css('height', `calc(100vh - ${ $('.mobile-header').outerHeight()}px - ${$('.mobile-footer').outerHeight()}px`);
+        const transactionListContainer = $('#transactionsContainer');
+        const headerHeight = $('.mobile-header').outerHeight();
+        transactionListContainer.css('height', `calc(100vh - ${headerHeight}px - ${$('.mobile-footer').outerHeight()}px`);
+        transactionListContainer.css('margin-top', `${headerHeight}px;`);
 
         initTransactionList(data.transactionData.transactions, data.accounts);
       })

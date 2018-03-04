@@ -9,10 +9,6 @@
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
 
   .total-account-balance {
     margin-left: 4px;
@@ -21,6 +17,9 @@
   p {
     margin: 0;
     font-size: 24px;
-    font-weight: 300;
+
+    i {
+      font-weight: 300;
+    }
   }
 }
