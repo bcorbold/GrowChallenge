@@ -3,7 +3,7 @@ require('./transaction-list.scss');
 
 import $ from 'jquery';
 import { copyJsonData, formatDollarAmount } from '../helpers';
-import { getFilteredAccountNames, getFilteredCategories } from '../side-nav/side-nav';
+import { getFilteredAccountNames, getFilteredCategories, getFromDate, getToDate } from '../side-nav/side-nav';
 
 const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
 let fullTransactionList = [];
@@ -42,10 +42,14 @@ export function initTransactionList(transactions, accounts) {
   setAccountList(accounts);
   renderTransactionList(fullTransactionList);
 
+  // todo: this can be optimized better
   $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
-    // todo: add in date range stuff here
+
+    // more recent dates are > than older dates
+    const fromDate = new Date(getFromDate());
+    const toDate = new Date(getToDate());
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
       renderTransactionList(fullTransactionList);
@@ -53,9 +57,7 @@ export function initTransactionList(transactions, accounts) {
       let filteredTransactionList = copyJsonData(fullTransactionList);
       if (filteredAccountNames.length !== 0) {
         const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
-        filteredTransactionList = filteredTransactionList.filter(transaction => {
-          return filteredAccountList.find(account => account.accountId === transaction.accountId);
-        });
+        filteredTransactionList = filteredTransactionList.filter(transaction => filteredAccountList.find(account => account.accountId === transaction.accountId));
       }
 
       if (filteredCategories.length !== 0) {

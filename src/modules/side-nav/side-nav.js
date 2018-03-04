@@ -157,3 +157,7 @@ export function setTransactionCategories(categoryList) {
 export function getFilteredAccountNames() { return filteredAccounts; }
 
 export function getFilteredCategories() { return filteredCategories; }
+
+export function getFromDate() { return $(`#${fromDateInput}`).val() }
+
+export function getToDate() { return $(`#${toDateInput}`).val()}
