@@ -42,10 +42,10 @@ export function initTransactionList(transactions, accounts) {
   setAccountList(accounts);
   renderTransactionList(fullTransactionList);
 
-  // todo: would it be faster to add everything to the dom, and then show/hide elements based on filters?
   $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
+    // todo: add in date range stuff here
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
       renderTransactionList(fullTransactionList);

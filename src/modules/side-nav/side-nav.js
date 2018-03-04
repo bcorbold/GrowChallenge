@@ -4,6 +4,7 @@ require('./side-nav.scss');
 import $ from 'jquery';
 import _ from 'lodash';
 import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
+import { createDateInput } from '../date-input/date-input';
 
 let filteredAccounts = [];
 let accounts;
@@ -13,15 +14,23 @@ let categories;
 
 const accountFilterContainerId = 'accountAutoComplete';
 const categoryFilterContainerId = 'categoryAutoComplete';
+const fromDateContainerId = 'fromDate';
+const toDateContainerId = 'toDate';
+
 const accountAutoCompleteId = `${accountFilterContainerId}Input`;
 const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
+const fromDateInput = `${fromDateContainerId}Input`;
+const toDateInput = `${toDateContainerId}Input`;
 
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
                               <i class="material-icons">close</i>
                             </button>
-                            <div id="${accountFilterContainerId}" class="accounts-select"></div>
-                            <div id="${categoryFilterContainerId}" class="category-select"></div>
+                            <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
+                            <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
+                            <div id="${fromDateContainerId}" class="date-input-container"></div>
+                            <div id="${toDateContainerId}" class="date-input-container"></div>
+
                             
                             <div id="selected-accounts" class="selected-accounts-list"></div>
                             <div id="selected-categories" class="categories-accounts-list"></div>
@@ -41,6 +50,8 @@ export function createSideNav() {
 
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
+  createDateInput(fromDateContainerId, fromDateInput, 'From...', '2018-03-03'); // todo: init with oldest day
+  createDateInput(toDateContainerId, toDateInput, 'To...'); // todo: init with today
 
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
@@ -64,7 +75,10 @@ export function createSideNav() {
     event.stopPropagation();
   });
   $('#closeNav').click(() => closeNav());
-  $('#submitFiltersButton').click(() => closeNav());
+  $('#submitFiltersButton').click(() => {
+    closeNav();
+    $('#sortArrow').text('arrow_downward');
+  });
   $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
     filteredCategories = [];
