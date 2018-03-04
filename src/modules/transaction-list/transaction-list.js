@@ -21,7 +21,6 @@ function reverseOrder() {
   renderTransactionList(renderedTransactionList);
 }
 
-// todo: play around with material icons for transaction type
 function createTransactionRowTemplate(transaction, account) {
   return `<div class="transaction-card">
               <div class="transaction-info">

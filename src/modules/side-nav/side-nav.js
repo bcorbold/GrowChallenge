@@ -90,7 +90,6 @@ export function createSideNav() {
   });
 }
 
-// todo: these are getting called twice, look into better event subscriptions
 function openNav() {
   const filterNav = $('#filterSideNav');
   filterNav.removeClass('closed-nav');

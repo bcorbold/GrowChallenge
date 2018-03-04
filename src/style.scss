@@ -4,8 +4,6 @@
 $mobile-width-breakpoint: 450px;
 $tablet-width-breakpoint: 900px;
 
-// todo: scroll bar styles don't work on Windows 10 + Edge
-// todo: scroll bar styles don't work on MacOs + Firefox
 ::-webkit-scrollbar {
   width: 6px;
 }

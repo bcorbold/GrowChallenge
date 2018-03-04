@@ -1,30 +1,12 @@
-// Dark Theme
-//$primary-contrast: #80CBC4; // teal 200
-//$primary: #009688; // teal 500
-//
-//$warn-light: #FF5252; // red A200
-//
-//$card-background: #FAFAFA; // grey 100
-//$panel-background: #424242; // grey 800
-//$header-background: #212121; // grey 900
-//
-//$shadow-color: rgba(33, 33, 33, 0.8); // grey 900
-//
-//$contrast-text: white;
-
-// Light Theme
 $primary: #2196f3;
-
-$warn-light: #FF5252;
+$accent: #FF5252;
 
 $card-background: #FAFAFA;
 $panel-background: #F5F5F5;
 $header-background: white;
 
-// todo: this is a little too dark for light theme
-$shadow-color: rgba(97, 97, 97, 0.3); // grey 900
+$shadow-color: rgba(97, 97, 97, 0.3);
 
-$contrast-text: black;
 $light-text: white;
 
 ::-webkit-scrollbar-thumb {
@@ -33,5 +15,4 @@ $light-text: white;
 
 html {
   background-color: $header-background;
-  color: $contrast-text;
 }

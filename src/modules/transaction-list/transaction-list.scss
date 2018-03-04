@@ -1,6 +1,5 @@
 @import '../../style';
 
-// todo: transaction container causes parent to overflow on Android + Chrome
 .transactions-container {
   padding: 0;
   margin: 0;
@@ -41,6 +40,7 @@
 
     .transaction-values {
       text-align: right;
+      margin-left: 16px;
 
       .transaction-amount {
         margin: 0;

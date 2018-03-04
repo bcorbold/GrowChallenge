@@ -32,6 +32,7 @@ function fetchTransactions() {
           setDateInputs(data.transactionData.earliestTransactionDate, data.transactionData.latestTransactionDate);
         });
 
+        // todo: this should be fixable with flex layout
         // transactionList set up
         const transactionListContainer = $('#transactionsContainer');
         const headerHeight = $('.mobile-header').outerHeight();
