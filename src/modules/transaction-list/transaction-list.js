@@ -5,10 +5,16 @@ import $ from 'jquery';
 import { copyJsonData, formatDollarAmount } from '../helpers';
 import { getFilteredAccountNames, getFilteredCategories, getFromDate, getToDate } from '../side-nav/side-nav';
 
-const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
+const transactionContainerTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
 let fullTransactionList = [];
 let fullAccountList = [];
 let renderedTransactionList = [];
+
+export function renderTransactionList() { $('body').append(transactionContainerTemplate); }
+
+
+
+
 
 function setTransactionList(transactions) { fullTransactionList = copyJsonData(transactions); }
 
@@ -18,7 +24,7 @@ function createDateHeader(date) { return `<div class="date-header"><p>${date}</p
 
 function reverseOrder() {
   renderedTransactionList = renderedTransactionList.reverse();
-  renderTransactionList(renderedTransactionList);
+  old_renderTransactionList(renderedTransactionList);
 }
 
 function createTransactionRowTemplate(transaction, account) {
@@ -34,12 +40,10 @@ function createTransactionRowTemplate(transaction, account) {
           </div>`;
 }
 
-export function createTransactionList() { $('body').append(emptyTemplate); }
-
 export function initTransactionList(transactions, accounts) {
   setTransactionList(transactions);
   setAccountList(accounts);
-  renderTransactionList(fullTransactionList);
+  old_renderTransactionList(fullTransactionList);
 
   // todo: can this be optimized more?
   $('#submitFiltersButton').click(() => {
@@ -57,7 +61,7 @@ export function initTransactionList(transactions, accounts) {
     });
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
-      renderTransactionList(filteredTransactionList);
+      old_renderTransactionList(filteredTransactionList);
     } else {
       if (filteredAccountNames.length !== 0) {
         const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
@@ -68,14 +72,14 @@ export function initTransactionList(transactions, accounts) {
         filteredTransactionList = filteredTransactionList.filter(transaction => filteredCategories.includes(transaction.category));
       }
 
-      renderTransactionList(filteredTransactionList);
+      old_renderTransactionList(filteredTransactionList);
     }
   });
-  $('#resetFiltersButton').click(() => renderTransactionList(fullTransactionList));
+  $('#resetFiltersButton').click(() => old_renderTransactionList(fullTransactionList));
   $('#dateSortButton').click(() => reverseOrder());
 }
 
-export function renderTransactionList(transactions) {
+export function old_renderTransactionList(transactions) {
   const transactionListContainer = $('#transactionsContainer');
 
   if (transactionListContainer.children().length !== 0) {

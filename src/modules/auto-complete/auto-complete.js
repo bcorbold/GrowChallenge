@@ -8,7 +8,7 @@ const keyDown = 40;
 const keyUp = 38;
 const keyEnter = 13;
 
-export function createAutoCompleteInput(parentId, inputId, label) {
+export function renderAutoCompleteInput(parentId, inputId, label) {
   const template = `
     <form autocomplete="off" class="auto-complete-form" id="${inputId}Form">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

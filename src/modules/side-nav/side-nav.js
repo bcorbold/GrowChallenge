@@ -3,8 +3,8 @@ require('./side-nav.scss');
 
 import $ from 'jquery';
 import _ from 'lodash';
-import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
-import { createDateInput } from '../date-input/date-input';
+import { renderAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
+import { renderDateInput } from '../date-input/date-input';
 
 let filteredAccounts = [];
 let accounts;
@@ -47,14 +47,21 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             </div>
                           </div>`;
 
-export function createSideNav() {
+export function renderSideNav() {
   $('body').append(sideNaveTemplate);
 
-  createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
-  createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  createDateInput(fromDateContainerId, fromDateInput, 'From...');
-  createDateInput(toDateContainerId, toDateInput, 'To...');
+  renderAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
+  renderAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
+  renderDateInput(fromDateContainerId, fromDateInput, 'From...');
+  renderDateInput(toDateContainerId, toDateInput, 'To...');
+}
 
+
+
+
+
+
+export function createSideNav() {
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
   sideNav.on('touchstart', (event) => event.stopPropagation());

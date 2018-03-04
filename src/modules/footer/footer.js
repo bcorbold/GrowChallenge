@@ -6,9 +6,11 @@ import { formatDollarAmount } from '../helpers';
 
 const footerTemplate = '<div class="mobile-footer"><p>Total Balance:</p></div>';
 
-export function createFooter() {
-  $('body').append(footerTemplate);
-}
+export function renderFooter() { $('body').append(footerTemplate); }
+
+
+
+
 
 export function renderTotalBounce(accountList) {
   let totalBalance = 0;
