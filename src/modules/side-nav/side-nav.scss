@@ -5,7 +5,7 @@
   height: 100%;
   width: 0; // change width to show/hide
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   overflow-x: hidden;
@@ -19,7 +19,7 @@
     z-index: 1;
   }
 
-  .accounts-select, .category-select {
+  .auto-complete-container, .date-input-container {
     margin: 0 16px;
     width: -webkit-fill-available;
     width: -moz-available;

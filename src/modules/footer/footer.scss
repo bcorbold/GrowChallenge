@@ -1,3 +1,4 @@
+// todo: appears underneath the transaction-list on Safari + iOS
 .mobile-footer {
   width: 100%;
   display: -webkit-box;
@@ -11,6 +12,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 1;
 
   .total-account-balance {
     margin-left: 4px;

@@ -1,18 +1,34 @@
-// todo: make a light theme, makes more sense with a banking app
-$primary-light: #80CBC4; // teal 200
-$primary: #009688; // teal 500
+// Dark Theme
+//$primary-contrast: #80CBC4; // teal 200
+//$primary: #009688; // teal 500
+//
+//$warn-light: #FF5252; // red A200
+//
+//$card-background: #FAFAFA; // grey 100
+//$panel-background: #424242; // grey 800
+//$header-background: #212121; // grey 900
+//
+//$shadow-color: rgba(33, 33, 33, 0.8); // grey 900
+//
+//$contrast-text: white;
 
-$warn-light: #FF5252; // red A200
+// Light Theme
+$primary-contrast: #009688; // teal 500
+$primary: #26A69A;
 
-$card-background: #FAFAFA; // grey 100
-$background: #616161; // grey 700
-$panel-background: #424242; // grey 800
-$header-background: #212121; // grey 900
+$warn-light: #FF5252;
 
+$card-background: #FAFAFA;
+$panel-background: #EEEEEE; // grey 200
+$header-background: white; // done
+
+// todo: this is a little too dark for light theme
 $shadow-color: rgba(33, 33, 33, 0.8); // grey 900
 
+$contrast-text: black;
+
 ::-webkit-scrollbar-thumb {
-  background-color: $primary-light;
+  background-color: $primary-contrast;
 }
 
 html {

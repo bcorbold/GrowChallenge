@@ -3,7 +3,7 @@ require('./transaction-list.scss');
 
 import $ from 'jquery';
 import { copyJsonData, formatDollarAmount } from '../helpers';
-import { getFilteredAccountNames, getFilteredCategories } from '../side-nav/side-nav';
+import { getFilteredAccountNames, getFilteredCategories, getFromDate, getToDate } from '../side-nav/side-nav';
 
 const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
 let fullTransactionList = [];
@@ -21,11 +21,12 @@ function reverseOrder() {
   renderTransactionList(renderedTransactionList);
 }
 
+// todo: play around with material icons for transaction type
 function createTransactionRowTemplate(transaction, account) {
   return `<div class="transaction-card">
               <div class="transaction-info">
                 <p class="account-name">${account.accountName}</p>
-                <i>${transaction.description}</i>
+                <p class="transaction-description"><i>${transaction.description}</i></p>
               </div>
               <div class="transaction-values">
                 <p class="transaction-amount">${formatDollarAmount(transaction.amount)}</p>
@@ -41,20 +42,27 @@ export function initTransactionList(transactions, accounts) {
   setAccountList(accounts);
   renderTransactionList(fullTransactionList);
 
-  // todo: would it be faster to add everything to the dom, and then show/hide elements based on filters?
+  // todo: can this be optimized more?
   $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
+    let filteredTransactionList = copyJsonData(fullTransactionList);
+
+    // todo: what if from > to? Invalid inputs? Sort in reverse?
+    const fromDate = Date.parse(getFromDate());
+    const toDate = Date.parse(getToDate());
+
+    filteredTransactionList = filteredTransactionList.filter(transaction => {
+      const transactionDate = Date.parse(transaction.transactionDate);
+      return transactionDate >= fromDate && transactionDate <= toDate;
+    });
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
-      renderTransactionList(fullTransactionList);
+      renderTransactionList(filteredTransactionList);
     } else {
-      let filteredTransactionList = copyJsonData(fullTransactionList);
       if (filteredAccountNames.length !== 0) {
         const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
-        filteredTransactionList = filteredTransactionList.filter(transaction => {
-          return filteredAccountList.find(account => account.accountId === transaction.accountId);
-        });
+        filteredTransactionList = filteredTransactionList.filter(transaction => filteredAccountList.find(account => account.accountId === transaction.accountId));
       }
 
       if (filteredCategories.length !== 0) {

@@ -4,25 +4,35 @@ require('./side-nav.scss');
 import $ from 'jquery';
 import _ from 'lodash';
 import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
+import { createDateInput } from '../date-input/date-input';
 
 let filteredAccounts = [];
 let accounts;
-
 let filteredCategories = [];
 let categories;
+let earliestDate;
+let latestDate;
 
-const accountAutoCompleteId = 'accountAutoCompleteInput';
+
 const accountFilterContainerId = 'accountAutoComplete';
-const categoryAutoCompleteId = 'categoryAutoCompleteInput';
 const categoryFilterContainerId = 'categoryAutoComplete';
+const fromDateContainerId = 'fromDate';
+const toDateContainerId = 'toDate';
 
-// todo: add close button back
+const accountAutoCompleteId = `${accountFilterContainerId}Input`;
+const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
+const fromDateInput = `${fromDateContainerId}Input`;
+const toDateInput = `${toDateContainerId}Input`;
+
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
                               <i class="material-icons">close</i>
                             </button>
-                            <div id="${accountFilterContainerId}" class="accounts-select"></div>
-                            <div id="${categoryFilterContainerId}" class="category-select"></div>
+                            <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
+                            <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
+                            <div id="${fromDateContainerId}" class="date-input-container"></div>
+                            <div id="${toDateContainerId}" class="date-input-container"></div>
+
                             
                             <div id="selected-accounts" class="selected-accounts-list"></div>
                             <div id="selected-categories" class="categories-accounts-list"></div>
@@ -40,11 +50,11 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
 export function createSideNav() {
   $('body').append(sideNaveTemplate);
 
-  // todo: change these width style changes to classes so they can be changed using @media
   createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
   createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
+  createDateInput(fromDateContainerId, fromDateInput, 'From...');
+  createDateInput(toDateContainerId, toDateInput, 'To...');
 
-  // todo: safari on iOs doesn't emit any of these
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
   sideNav.on('touchstart', (event) => event.stopPropagation());
@@ -67,7 +77,10 @@ export function createSideNav() {
     event.stopPropagation();
   });
   $('#closeNav').click(() => closeNav());
-  $('#submitFiltersButton').click(() => closeNav());
+  $('#submitFiltersButton').click(() => {
+    closeNav();
+    $('#sortArrow').text('arrow_downward');
+  });
   $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
     filteredCategories = [];
@@ -146,3 +159,12 @@ export function setTransactionCategories(categoryList) {
 export function getFilteredAccountNames() { return filteredAccounts; }
 
 export function getFilteredCategories() { return filteredCategories; }
+
+export function setDateInputs(fromDate, toDate) {
+  $(`#${fromDateInput}`).val(fromDate);
+  $(`#${toDateInput}`).val(toDate);
+}
+
+export function getFromDate() { return $(`#${fromDateInput}`).val() }
+
+export function getToDate() { return $(`#${toDateInput}`).val()}

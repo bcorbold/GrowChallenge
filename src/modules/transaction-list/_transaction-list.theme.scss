@@ -4,7 +4,7 @@
 
   .date-header {
     background-color: $panel-background;
-    color: $primary-light;
+    color: $primary-contrast;
   }
 
   .transaction-card {
@@ -16,6 +16,6 @@
   }
 
   .no-transactions {
-    color: white;
+    color: $contrast-text;
   }
 }

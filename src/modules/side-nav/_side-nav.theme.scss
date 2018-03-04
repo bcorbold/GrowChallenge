@@ -13,10 +13,10 @@
   .categories-accounts-list {
     .mdl-chip {
       background-color: $primary;
-      color: white;
+      color: $contrast-text;
 
       .mdl-chip__action {
-        color: white;
+        color: $contrast-text;
       }
     }
   }
