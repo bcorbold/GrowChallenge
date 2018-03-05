@@ -6,18 +6,15 @@
   -moz-box-shadow: 0 0 20px $shadow-color;
   box-shadow: 0 0 20px $shadow-color;
 
-  #closeNav {
-    color: $accent;
-  }
+  #closeNav { color: $accent; }
 
   .categories-accounts-list {
+
     .mdl-chip {
       background-color: $primary;
       color: $light-text;
 
-      .mdl-chip__action {
-        color: $light-text;
-      }
+      .mdl-chip__action { color: $light-text; }
     }
   }
 }

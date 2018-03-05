@@ -13,22 +13,17 @@
   padding: 8px 16px;
   min-height: 40px;
 
-  .total-account-balance {
-    margin-left: 4px;
-  }
+  .total-account-balance { margin-left: 4px; }
 
   p {
     margin: 0;
     font-size: 24px;
 
-    i {
-      font-weight: 300;
-    }
+    i { font-weight: 300; }
   }
 }
 
 @media screen and (max-width: $tablet-width-breakpoint) {
-  .mobile-footer {
-    max-width: 100%;
-  }
+
+  .mobile-footer { max-width: 100%; }
 }

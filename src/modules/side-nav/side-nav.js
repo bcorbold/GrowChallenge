@@ -1,5 +1,3 @@
-import { copyJsonData } from '../helpers';
-
 require('./_side-nav.theme.scss');
 require('./side-nav.scss');
 
@@ -8,23 +6,25 @@ import _ from 'lodash';
 import { renderAutoCompleteInput, initAutoComplete } from '../auto-complete/auto-complete';
 import { renderDateInput } from '../date-input/date-input';
 
+// container Ids so that inputs can be added in the correct place
+const accountFilterContainerId = 'accountAutoComplete';
+const categoryFilterContainerId = 'categoryAutoComplete';
+const fromDateContainerId = 'fromDate';
+const toDateContainerId = 'toDate';
+
+// input Ids so that the proper handlers can be added after they have been created
+const accountAutoCompleteId = `${accountFilterContainerId}Input`;
+const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
+const fromDateInput = `${fromDateContainerId}Input`;
+const toDateInput = `${toDateContainerId}Input`;
+
+// information stored so that filters can be stored/updated/used
 let filteredAccounts = [];
 let accounts;
 let filteredCategories = [];
 let categories;
 let earliestDate;
 let latestDate;
-
-
-const accountFilterContainerId = 'accountAutoComplete';
-const categoryFilterContainerId = 'categoryAutoComplete';
-const fromDateContainerId = 'fromDate';
-const toDateContainerId = 'toDate';
-
-const accountAutoCompleteId = `${accountFilterContainerId}Input`;
-const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
-const fromDateInput = `${fromDateContainerId}Input`;
-const toDateInput = `${toDateContainerId}Input`;
 
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
@@ -63,9 +63,7 @@ export function initSideNav(accountList, categoryList, fromDate, toDate) {
   // populating data where needed
   accounts = accountList;
   const accountNames = [];
-  accounts.forEach(account => {
-    accountNames.push(account.accountName);
-  });
+  accounts.forEach(account => accountNames.push(account.accountName));
   initAutoComplete(accountAutoCompleteId, accountNames);
 
   categories = categoryList;
@@ -76,13 +74,14 @@ export function initSideNav(accountList, categoryList, fromDate, toDate) {
   $(`#${fromDateInput}`).val(earliestDate);
   $(`#${toDateInput}`).val(latestDate);
 
-  // setting up event handlers
+  // setting up event handlers for side nav
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
   sideNav.on('touchstart', (event) => event.stopPropagation());
 
   const jDoc = $(document);
   jDoc.click(() => closeNav());
+  // custom event emitted by the auto complete inputs, adds filter to the appropriate list
   jDoc.on('selectOption', (event, value, id) => {
     if (id === accountAutoCompleteId) {
       renderAccountFilterChip(value);
@@ -96,12 +95,12 @@ export function initSideNav(accountList, categoryList, fromDate, toDate) {
 
   $('#openNav').click((event) => {
     openNav();
-    event.stopPropagation();
+    event.stopPropagation(); // if we don't stop propagation then the nav will be closed!
   });
   $('#closeNav').click(() => closeNav());
   $('#submitFiltersButton').click(() => {
     closeNav();
-    $('#sortArrow').text('arrow_downward');
+    $('#sortArrow').text('arrow_downward'); // list will always be first rendered recent -> old
   });
   $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
