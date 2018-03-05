@@ -1,18 +1,13 @@
 @import '../../theme';
 
-.autocomplete-items {
+.auto-complete-items {
   background-color: $card-background;
 
   div {
-    border-bottom: 1px solid $header-background;
+    border-bottom: 1px solid $panel-background;
   }
 
-  div:hover {
-    background-color: $primary;
-    color: $light-text;
-  }
-
-  .autocomplete-active {
+  .auto-complete-active {
     background-color: $primary !important;
     color: $light-text;
   }

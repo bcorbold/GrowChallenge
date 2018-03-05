@@ -34,55 +34,9 @@ function autocomplete(inputElement, options) {
   inputElement.on('input', () => showOptions());
   inputElement.focus(() => showOptions());
 
-  function showOptions() {
-    const inputValue = inputElement.val();
-    const inputId = inputElement.attr('id');
-    closeAllLists();
-
-    inputElement.parent().append(`<div id="${inputId}autocomplete-list" class="autocomplete-items"></div>`);
-
-    if (!inputValue) {
-      options.forEach(option => {
-        const selectOptionContainer = createAutoCompleteOptionTemplate(option, inputValue);
-        selectOptionContainer.click(function() {
-          $(this).trigger('selectOption', [$(this).children('input').val(), inputId]);
-          inputElement.val('');
-          closeAllLists();
-        });
-        selectOptionContainer.on('mouseover', () => {
-          let x = $(`#${inputId}autocomplete-list`);
-          if (x) x = x.children('div');
-          removeActive(x);
-        });
-        $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
-      });
-    } else {
-      for (let i = 0; i < options.length; i++) {
-        const matchedIndex = options[i].toUpperCase().indexOf(inputValue.toUpperCase());
-        if (matchedIndex !== -1) {
-          const selectOptionContainer = createAutoCompleteOptionTemplate(options[i], inputValue, matchedIndex);
-
-          selectOptionContainer.click(function() {
-            $(this).trigger('selectOption', [$(this).children('input').val(), inputId]);
-            inputElement.val('');
-            closeAllLists();
-          });
-
-          selectOptionContainer.on('mouseover', () => {
-            let x = $(`#${inputId}autocomplete-list`);
-            if (x) x = x.children('div');
-            removeActive(x);
-          });
-
-          $(`#${inputId}autocomplete-list`).append(selectOptionContainer);
-        }
-      }
-    }
-  }
-
   // highlight selections based on key presses
   inputElement.on('keydown', function(event) {
-    let x = $(`#${this.id}autocomplete-list`);
+    let x = $(`#${this.id}AutoCompleteList`);
     if (x.children('div').length !== 0) {
       x = x.children('div');
     }
@@ -100,29 +54,78 @@ function autocomplete(inputElement, options) {
     }
   });
 
-  // active being the element that is highlighted
+  function showOptions() {
+    const inputValue = inputElement.val();
+    const inputId = inputElement.attr('id');
+    closeAllLists();
+
+    inputElement.parent().append(`<div id="${inputId}AutoCompleteList" class="auto-complete-items"></div>`);
+
+    options.forEach(option => {
+      let selectOptionContainer;
+
+      // checking to see which options to render
+      if (!inputValue) {
+        selectOptionContainer = createAutoCompleteOptionTemplate(option, inputValue);
+      } else {
+        const matchedIndex = option.toUpperCase().indexOf(inputValue.toUpperCase());
+        if (matchedIndex !== -1) {
+          selectOptionContainer = createAutoCompleteOptionTemplate(option, inputValue, matchedIndex);
+        }
+      }
+
+      // add listeners to options
+      if (selectOptionContainer) {
+        selectOptionContainer.click(function() {
+          $(this).trigger('selectOption', [$(this).children('input').val(), inputId]);
+          inputElement.val('');
+          closeAllLists();
+        });
+
+        selectOptionContainer.on('mouseover', () => {
+          let x = $(`#${inputId}AutoCompleteList`);
+          if (x) x = x.children('div');
+          removeActive(x);
+          selectOptionContainer.addClass('auto-complete-active');
+          for (let i = 0; i < x.length; i++) {
+            if (selectOptionContainer[0] === x[i]) {
+              currentFocus = i;
+            }
+          }
+        });
+
+        selectOptionContainer.on('mouseleave', () => {
+          selectOptionContainer.removeClass('auto-complete-active');
+        });
+
+        $(`#${inputId}AutoCompleteList`).append(selectOptionContainer);
+      }
+    });
+  }
+
   function addActive(elementToCheck) {
     if (!elementToCheck) return false;
     removeActive(elementToCheck);
     if (currentFocus >= elementToCheck.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = (elementToCheck.length - 1);
     if (elementToCheck[currentFocus])
-      elementToCheck[currentFocus].classList.add('autocomplete-active');
+      elementToCheck[currentFocus].classList.add('auto-complete-active');
   }
 
   function removeActive(elements) {
     for (let i = 0; i < elements.length; i++) {
-      elements[i].classList.remove('autocomplete-active');
+      elements[i].classList.remove('auto-complete-active');
     }
   }
 
   function closeAllLists(selectedElement) {
-    const autoCompleteItems = $('.autocomplete-items');
-    for (let i = 0; i < autoCompleteItems.children().length; i++) {
+    const autoCompleteItems = $('.auto-complete-items');
+
+    autoCompleteItems.children().each((i) => {
       if (selectedElement !== autoCompleteItems[i] && selectedElement !== inputElement) {
-        autoCompleteItems[i].parentNode.removeChild(autoCompleteItems[i]);
+        autoCompleteItems[i].remove();
       }
-    }
+    });
   }
 
   function createAutoCompleteOptionTemplate(option, inputValue, matchedIndex) {
@@ -140,4 +143,5 @@ function autocomplete(inputElement, options) {
       closeAllLists();
     }
   });
+
 }

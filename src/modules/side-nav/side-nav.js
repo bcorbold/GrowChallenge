@@ -61,14 +61,14 @@ export function renderSideNav() {
 
 export function initSideNav(accountList, categoryList, fromDate, toDate) {
   // populating data where needed
-  accounts = accountList; // todo: check for aliasing
+  accounts = accountList;
   const accountNames = [];
   accounts.forEach(account => {
     accountNames.push(account.accountName);
   });
   initAutoComplete(accountAutoCompleteId, accountNames);
 
-  categories = categoryList; // todo: check for aliasing
+  categories = categoryList;
   initAutoComplete(categoryAutoCompleteId, categories);
 
   earliestDate = fromDate;
