@@ -1,15 +1,12 @@
 .auto-complete-form {
-  position: relative;
   display: inline-block;
+  position: relative;
   width: 100%;
 
-  .mdl-textfield {
-    width: 100%;
-    font-weight: 300;
-  }
+  .mdl-textfield { width: 100%; }
 }
 
-.autocomplete-items {
+.auto-complete-items {
   position: absolute;
   border: none;
   z-index: 99;

@@ -1,10 +1,8 @@
 @import './../../theme.scss';
 
 .mobile-header {
-  background-color: $header-background;
-  color: $primary-contrast;
+  background-color: $primary;
+  color: $light-text;
 
-  .date-sort-button {
-    color: $primary-contrast;
-  }
+  .date-sort-button { color: $light-text; }
 }

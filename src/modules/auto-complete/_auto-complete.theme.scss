@@ -1,35 +1,12 @@
 @import '../../theme';
-.auto-complete-form {
-  input {
-    font-weight: 300;
-    border-color: $contrast-text; // todo: Figure out the exact MLD css property to replace
-  }
 
-  .mdl-textfield {
-    label {
-      color: $contrast-text;
-    }
-
-    input {
-      color: $contrast-text;
-    }
-  }
-}
-
-.autocomplete-items {
+.auto-complete-items {
   background-color: $card-background;
 
-  div {
-    border-bottom: 1px solid $header-background;
-  }
+  div { border-bottom: 1px solid $panel-background; }
 
-  div:hover {
+  .auto-complete-active {
     background-color: $primary;
-    color: $contrast-text;
-  }
-
-  .autocomplete-active {
-    background-color: $primary !important;
-    color: $contrast-text;
+    color: $light-text;
   }
 }

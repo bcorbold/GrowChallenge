@@ -1,13 +1,8 @@
 @import '../../theme';
 
 .mobile-footer {
-  background-color: $header-background;
-  color: $contrast-text;
-  -webkit-box-shadow: 0 0 20px $shadow-color;
-  -moz-box-shadow: 0 0 20px $shadow-color;
-  box-shadow: 0 0 20px $shadow-color;
+  background-color: $primary;
+  color: $light-text;
 
-  .total-account-balance {
-    color: $primary-contrast;
-  }
+  .total-account-balance { color: $light-text; }
 }

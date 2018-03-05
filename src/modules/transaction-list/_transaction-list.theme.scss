@@ -4,18 +4,12 @@
 
   .date-header {
     background-color: $panel-background;
-    color: $primary-contrast;
+    color: $primary;
   }
 
   .transaction-card {
     background-color: $card-background;
 
-    .account-running-balance {
-      color: $primary;
-    }
-  }
-
-  .no-transactions {
-    color: $contrast-text;
+    .account-running-balance { color: $primary; }
   }
 }

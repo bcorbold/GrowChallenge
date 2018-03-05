@@ -3,9 +3,22 @@ require('./side-nav.scss');
 
 import $ from 'jquery';
 import _ from 'lodash';
-import { createAutoCompleteInput, populateAutoComplete } from '../auto-complete/auto-complete';
-import { createDateInput } from '../date-input/date-input';
+import { renderAutoCompleteInput, initAutoComplete } from '../auto-complete/auto-complete';
+import { renderDateInput } from '../date-input/date-input';
 
+// container Ids so that inputs can be added in the correct place
+const accountFilterContainerId = 'accountAutoComplete';
+const categoryFilterContainerId = 'categoryAutoComplete';
+const fromDateContainerId = 'fromDate';
+const toDateContainerId = 'toDate';
+
+// input Ids so that the proper handlers can be added after they have been created
+const accountAutoCompleteId = `${accountFilterContainerId}Input`;
+const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
+const fromDateInput = `${fromDateContainerId}Input`;
+const toDateInput = `${toDateContainerId}Input`;
+
+// information stored so that filters can be stored/updated/used
 let filteredAccounts = [];
 let accounts;
 let filteredCategories = [];
@@ -13,30 +26,20 @@ let categories;
 let earliestDate;
 let latestDate;
 
-
-const accountFilterContainerId = 'accountAutoComplete';
-const categoryFilterContainerId = 'categoryAutoComplete';
-const fromDateContainerId = 'fromDate';
-const toDateContainerId = 'toDate';
-
-const accountAutoCompleteId = `${accountFilterContainerId}Input`;
-const categoryAutoCompleteId = `${categoryFilterContainerId}Input`;
-const fromDateInput = `${fromDateContainerId}Input`;
-const toDateInput = `${toDateContainerId}Input`;
-
 const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
                               <i class="material-icons">close</i>
                             </button>
-                            <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
-                            <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
-                            <div id="${fromDateContainerId}" class="date-input-container"></div>
-                            <div id="${toDateContainerId}" class="date-input-container"></div>
-
-                            
-                            <div id="selected-accounts" class="selected-accounts-list"></div>
-                            <div id="selected-categories" class="categories-accounts-list"></div>
-                            
+                            <div class="filter-inputs">
+                              <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
+                              <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
+                              <div id="${fromDateContainerId}" class="date-input-container"></div>
+                              <div id="${toDateContainerId}" class="date-input-container"></div>
+  
+                              
+                              <div id="selected-accounts" class="selected-accounts-list"></div>
+                              <div id="selected-categories" class="categories-accounts-list"></div>
+                            </div>
                             <div id="filterButtons" class="filter-buttons">
                               <button id="resetFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Reset
@@ -47,26 +50,44 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             </div>
                           </div>`;
 
-export function createSideNav() {
+export function renderSideNav() {
   $('body').append(sideNaveTemplate);
 
-  createAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
-  createAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
-  createDateInput(fromDateContainerId, fromDateInput, 'From...');
-  createDateInput(toDateContainerId, toDateInput, 'To...');
+  renderAutoCompleteInput(accountFilterContainerId, accountAutoCompleteId, 'Accounts');
+  renderAutoCompleteInput(categoryFilterContainerId, categoryAutoCompleteId, 'Categories');
+  renderDateInput(fromDateContainerId, fromDateInput, 'From...');
+  renderDateInput(toDateContainerId, toDateInput, 'To...');
+}
 
+export function initSideNav(accountList, categoryList, fromDate, toDate) {
+  // populating data where needed
+  accounts = accountList;
+  const accountNames = [];
+  accounts.forEach(account => accountNames.push(account.accountName));
+  initAutoComplete(accountAutoCompleteId, accountNames);
+
+  categories = categoryList;
+  initAutoComplete(categoryAutoCompleteId, categories);
+
+  earliestDate = fromDate;
+  latestDate = toDate;
+  $(`#${fromDateInput}`).val(earliestDate);
+  $(`#${toDateInput}`).val(latestDate);
+
+  // setting up event handlers for side nav
   const sideNav = $('#filterSideNav');
   sideNav.click((event) => event.stopPropagation());
   sideNav.on('touchstart', (event) => event.stopPropagation());
 
   const jDoc = $(document);
   jDoc.click(() => closeNav());
+  // custom event emitted by the auto complete inputs, adds filter to the appropriate list
   jDoc.on('selectOption', (event, value, id) => {
     if (id === accountAutoCompleteId) {
-      addAccountFilterChip(value);
+      renderAccountFilterChip(value);
       $(`#${accountAutoCompleteId}Form`).children().removeClass('is-dirty');
     } else if (id === categoryAutoCompleteId) {
-      addCategoryFilterChip(value);
+      renderCategoryFilterChip(value);
       $(`#${categoryAutoCompleteId}Form`).children().removeClass('is-dirty');
     }
   });
@@ -74,12 +95,12 @@ export function createSideNav() {
 
   $('#openNav').click((event) => {
     openNav();
-    event.stopPropagation();
+    event.stopPropagation(); // if we don't stop propagation then the nav will be closed!
   });
   $('#closeNav').click(() => closeNav());
   $('#submitFiltersButton').click(() => {
     closeNav();
-    $('#sortArrow').text('arrow_downward');
+    $('#sortArrow').text('arrow_downward'); // list will always be first rendered recent -> old
   });
   $('#resetFiltersButton').click(() => {
     filteredAccounts = [];
@@ -87,10 +108,19 @@ export function createSideNav() {
     $('#selected-accounts').empty();
     $('#selected-categories').empty();
     $('#sortArrow').text('arrow_downward');
+    $(`#${fromDateInput}`).val(earliestDate);
+    $(`#${toDateInput}`).val(latestDate);
   });
 }
 
-// todo: these are getting called twice, look into better event subscriptions
+export function getFilteredAccountNames() { return filteredAccounts; }
+
+export function getFilteredCategories() { return filteredCategories; }
+
+export function getFromDate() { return $(`#${fromDateInput}`).val(); }
+
+export function getToDate() { return $(`#${toDateInput}`).val(); }
+
 function openNav() {
   const filterNav = $('#filterSideNav');
   filterNav.removeClass('closed-nav');
@@ -103,10 +133,10 @@ function closeNav() {
   filterNav.addClass('closed-nav');
 }
 
-function addAccountFilterChip(accountName) {
+function renderAccountFilterChip(accountName) {
   if (accountName !== null && accountName !== undefined && accountName !== '' && !filteredAccounts.includes(accountName)) {
     filteredAccounts.push(accountName);
-    const chip = createChip(accountName);
+    const chip = buildChip(accountName);
 
     chip.click((event) => {
       const clickedChip = $(event.currentTarget);
@@ -119,10 +149,10 @@ function addAccountFilterChip(accountName) {
   }
 }
 
-function addCategoryFilterChip(category) {
+function renderCategoryFilterChip(category) {
   if (category !== null && category !== undefined && category !== '' && !filteredCategories.includes(category)) {
     filteredCategories.push(category);
-    const chip = createChip(category);
+    const chip = buildChip(category);
 
     chip.click((event) => {
       const clickedChip = $(event.currentTarget);
@@ -135,36 +165,9 @@ function addCategoryFilterChip(category) {
   }
 }
 
-function createChip(text) {
+function buildChip(text) {
   return $(`<span class="mdl-chip mdl-chip--deletable">
                 <span class="mdl-chip__text filter-chip-text">${text}</span>
                 <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
             </span>`);
 }
-
-export function setAccounts(accountList) {
-  accounts = accountList;
-  const accountNames = [];
-  accounts.forEach(account => {
-    accountNames.push(account.accountName);
-  });
-  populateAutoComplete(accountAutoCompleteId, accountNames);
-}
-
-export function setTransactionCategories(categoryList) {
-  categories = categoryList;
-  populateAutoComplete(categoryAutoCompleteId, categories);
-}
-
-export function getFilteredAccountNames() { return filteredAccounts; }
-
-export function getFilteredCategories() { return filteredCategories; }
-
-export function setDateInputs(fromDate, toDate) {
-  $(`#${fromDateInput}`).val(fromDate);
-  $(`#${toDateInput}`).val(toDate);
-}
-
-export function getFromDate() { return $(`#${fromDateInput}`).val() }
-
-export function getToDate() { return $(`#${toDateInput}`).val()}

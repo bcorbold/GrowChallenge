@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700');
 @import './theme.scss';
 
+/*
+  Style files contain everything but colours. Those are hosted in the theme files.
+  This helps separate layout changes from theme ones, and any colour changes can be isolated.
+*/
+
 $mobile-width-breakpoint: 450px;
 $tablet-width-breakpoint: 900px;
 
-// todo: scroll bar styles don't work on Windows 10 + Edge
-// todo: scroll bar styles don't work on MacOs + Firefox
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -40,11 +43,11 @@ html {
 }
 
 body {
-  padding: 0 15%;
-}
-
-@media screen and (max-width: $tablet-width-breakpoint) {
-  body {
-    padding: 0;
-  }
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

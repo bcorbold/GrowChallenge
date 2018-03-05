@@ -2,6 +2,7 @@
 
 .mobile-header {
   width: 100%;
+  max-width: $tablet-width-breakpoint;
   overflow: auto;
   display: -webkit-box;
   display: -moz-box;
@@ -11,4 +12,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 16px;
+  min-height: 52px;
+}
+
+@media screen and (max-width: $tablet-width-breakpoint) {
+
+  .mobile-header { max-width: 100%; }
 }

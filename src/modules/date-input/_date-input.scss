@@ -1,13 +1,6 @@
 @import '../../theme';
 
 .date-input {
-  color: $contrast-text;
 
-  .floating-label {
-    color: $primary;
-  }
-
-  input {
-    border-color: $contrast-text;
-  }
+  .floating-label { color: $primary; }
 }

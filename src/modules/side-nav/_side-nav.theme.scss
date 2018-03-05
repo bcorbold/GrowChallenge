@@ -1,23 +1,20 @@
 @import '../../theme';
 
 .side-nav {
-  background-color: $panel-background;
+  background-color: white;
   -webkit-box-shadow: 0 0 20px $shadow-color;
   -moz-box-shadow: 0 0 20px $shadow-color;
   box-shadow: 0 0 20px $shadow-color;
 
-  #closeNav {
-    color: $warn-light;
-  }
+  #closeNav { color: $accent; }
 
   .categories-accounts-list {
+
     .mdl-chip {
       background-color: $primary;
-      color: $contrast-text;
+      color: $light-text;
 
-      .mdl-chip__action {
-        color: $contrast-text;
-      }
+      .mdl-chip__action { color: $light-text; }
     }
   }
 }

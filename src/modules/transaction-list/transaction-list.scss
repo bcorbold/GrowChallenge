@@ -1,11 +1,13 @@
 @import '../../style';
 
-// todo: transaction container causes parent to overflow on Android + Chrome
 .transactions-container {
+  width: 100%;
+  max-width: $tablet-width-breakpoint;
   padding: 0;
   margin: 0;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  flex-grow: 1;
 
   .date-header {
     width: 100%;
@@ -19,6 +21,10 @@
     width: 100%;
     margin-bottom: 2px;
     padding: 8px 16px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
 
@@ -26,21 +32,16 @@
       flex-grow: 1;
       margin-right: 16px;
 
-      .account-name {
-        font-weight: 600;
-      }
+      .account-name { font-weight: 600; }
 
-      .transaction-description {
-        line-height: 16px;
-      }
+      .transaction-description { line-height: 16px; }
 
-      p {
-        margin: 0;
-      }
+      p { margin: 0; }
     }
 
     .transaction-values {
       text-align: right;
+      margin-left: 16px;
 
       .transaction-amount {
         margin: 0;
@@ -58,4 +59,9 @@
     margin: 16px;
     font-weight: 300;
   }
+}
+
+@media screen and (max-width: $tablet-width-breakpoint) {
+
+  .transactions-container { max-width: 100%; }
 }
