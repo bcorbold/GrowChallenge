@@ -25,7 +25,6 @@ export function initAutoComplete(inputId, filterList) {
   autocomplete($(`#${inputId}`), copyJsonData(filterList));
 }
 
-// todo: will highlight index that is hovered + selected by key stroke, should only have 1 highlighted at a time
 // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
 function autocomplete(inputElement, options) {
   let currentFocus = -1;

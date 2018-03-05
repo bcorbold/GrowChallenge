@@ -17,13 +17,11 @@ export function initTransactionList(transactions, accounts) {
   setAccountList(accounts);
   populateTransactionList(fullTransactionList);
 
-  // todo: can this be optimized more?
   $('#submitFiltersButton').click(() => {
     let filteredAccountNames = getFilteredAccountNames();
     let filteredCategories = getFilteredCategories();
     let filteredTransactionList = copyJsonData(fullTransactionList);
 
-    // todo: what if from > to? Invalid inputs? Sort in reverse?
     const fromDate = Date.parse(getFromDate());
     const toDate = Date.parse(getToDate());
 
