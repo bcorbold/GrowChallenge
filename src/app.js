@@ -10,17 +10,19 @@ import { initTransactionList, renderTransactionListContainer } from './modules/t
 const transactionUrl = 'https://demo7235469.mockable.io/transactions';
 
 $(document).ready(() => {
-  fetchTransactions();
+  // start adding main components to the DOM then fetch the transaction data
   renderHeader();
   renderSideNav();
   renderTransactionListContainer();
   renderFooter();
+  fetchTransactions();
 });
 
 function fetchTransactions() {
   fetch(transactionUrl)
       .then(response => response.json())
       .then(data => {
+        // now that we have the data can initialize data/add event listeners (since we know everything has been rendered)
         initHeader();
         initSideNav(data.accounts, data.categories, data.transactionData.earliestTransactionDate, new Date().toISOString().split('T')[0]);
         initTransactionList(data.transactionData.transactions, data.accounts);

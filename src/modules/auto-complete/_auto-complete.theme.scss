@@ -3,9 +3,7 @@
 .auto-complete-items {
   background-color: $card-background;
 
-  div {
-    border-bottom: 1px solid $panel-background;
-  }
+  div { border-bottom: 1px solid $panel-background; }
 
   .auto-complete-active {
     background-color: $primary;

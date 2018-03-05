@@ -21,6 +21,10 @@
     width: 100%;
     margin-bottom: 2px;
     padding: 8px 16px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
 
@@ -28,17 +32,11 @@
       flex-grow: 1;
       margin-right: 16px;
 
-      .account-name {
-        font-weight: 600;
-      }
+      .account-name { font-weight: 600; }
 
-      .transaction-description {
-        line-height: 16px;
-      }
+      .transaction-description { line-height: 16px; }
 
-      p {
-        margin: 0;
-      }
+      p { margin: 0; }
     }
 
     .transaction-values {
@@ -64,7 +62,6 @@
 }
 
 @media screen and (max-width: $tablet-width-breakpoint) {
-  .transactions-container {
-    max-width: 100%;
-  }
+
+  .transactions-container { max-width: 100%; }
 }

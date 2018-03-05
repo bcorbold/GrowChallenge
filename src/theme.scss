@@ -1,11 +1,17 @@
-$primary: #2196f3;
-$accent: #FF5252;
+/*
+  All of the variables (compliant with Material Design) for colours that will be used throughout the UI.
+  Allows a single point to change variables if we wanted to change to a different theme (used dark theme while
+  developing and this made the change to light theme very easy).
+*/
 
-$card-background: #F5F5F5;
-$panel-background: #E0E0E0;
+$primary: #2196f3; // blue 500
+$accent: #FF5252; // red A200, this is what MDL uses for accent buttons so made it consistent
+
+$card-background: #F5F5F5; // grey 100
+$panel-background: #E0E0E0; // grey 300
 $header-background: white;
 
-$shadow-color: rgba(97, 97, 97, 0.3);
+$shadow-color: rgba(97, 97, 97, 0.3); // grey 700 @ %30 opacity
 
 $light-text: white;
 
