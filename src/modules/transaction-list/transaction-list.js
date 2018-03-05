@@ -5,41 +5,17 @@ import $ from 'jquery';
 import { copyJsonData, formatDollarAmount } from '../helpers';
 import { getFilteredAccountNames, getFilteredCategories, getFromDate, getToDate } from '../side-nav/side-nav';
 
-const emptyTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
+const transactionContainerTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
 let fullTransactionList = [];
 let fullAccountList = [];
 let renderedTransactionList = [];
 
-function setTransactionList(transactions) { fullTransactionList = copyJsonData(transactions); }
-
-function setAccountList(accounts) { fullAccountList = copyJsonData(accounts); }
-
-function createDateHeader(date) { return `<div class="date-header"><p>${date}</p></div>`; }
-
-function reverseOrder() {
-  renderedTransactionList = renderedTransactionList.reverse();
-  renderTransactionList(renderedTransactionList);
-}
-
-function createTransactionRowTemplate(transaction, account) {
-  return `<div class="transaction-card">
-              <div class="transaction-info">
-                <p class="account-name">${account.accountName}</p>
-                <p class="transaction-description"><i>${transaction.description}</i></p>
-              </div>
-              <div class="transaction-values">
-                <p class="transaction-amount">${formatDollarAmount(transaction.amount)}</p>
-                <p class="account-running-balance">${formatDollarAmount(transaction.runningBalance)}</p>
-              </div>
-          </div>`;
-}
-
-export function createTransactionList() { $('body').append(emptyTemplate); }
+export function renderTransactionListContainer() { $('body').append(transactionContainerTemplate); }
 
 export function initTransactionList(transactions, accounts) {
   setTransactionList(transactions);
   setAccountList(accounts);
-  renderTransactionList(fullTransactionList);
+  populateTransactionList(fullTransactionList);
 
   // todo: can this be optimized more?
   $('#submitFiltersButton').click(() => {
@@ -57,7 +33,7 @@ export function initTransactionList(transactions, accounts) {
     });
 
     if (filteredAccountNames.length === 0 && filteredCategories.length === 0) {
-      renderTransactionList(filteredTransactionList);
+      populateTransactionList(filteredTransactionList);
     } else {
       if (filteredAccountNames.length !== 0) {
         const filteredAccountList = fullAccountList.filter(account => filteredAccountNames.includes(account.accountName));
@@ -68,14 +44,14 @@ export function initTransactionList(transactions, accounts) {
         filteredTransactionList = filteredTransactionList.filter(transaction => filteredCategories.includes(transaction.category));
       }
 
-      renderTransactionList(filteredTransactionList);
+      populateTransactionList(filteredTransactionList);
     }
   });
-  $('#resetFiltersButton').click(() => renderTransactionList(fullTransactionList));
+  $('#resetFiltersButton').click(() => populateTransactionList(fullTransactionList));
   $('#dateSortButton').click(() => reverseOrder());
 }
 
-export function renderTransactionList(transactions) {
+export function populateTransactionList(transactions) {
   const transactionListContainer = $('#transactionsContainer');
 
   if (transactionListContainer.children().length !== 0) {
@@ -88,7 +64,7 @@ export function renderTransactionList(transactions) {
         transactionListContainer.append(createDateHeader(transaction.transactionDate))
       }
       const accountName = fullAccountList.filter(account => account.accountId === transaction.accountId)[0];
-      transactionListContainer.append(createTransactionRowTemplate(transaction, accountName));
+      transactionListContainer.append(buildTransactionRowTemplate(transaction, accountName));
     });
   } else {
     transactionListContainer.append('<p class="no-transactions"><i>No transactions available that match the specified filters.</i></p>')
@@ -97,3 +73,26 @@ export function renderTransactionList(transactions) {
   renderedTransactionList = copyJsonData(transactions);
 }
 
+function setTransactionList(transactions) { fullTransactionList = copyJsonData(transactions); }
+
+function setAccountList(accounts) { fullAccountList = copyJsonData(accounts); }
+
+function createDateHeader(date) { return `<div class="date-header"><p>${date}</p></div>`; }
+
+function reverseOrder() {
+  renderedTransactionList = renderedTransactionList.reverse();
+  populateTransactionList(renderedTransactionList);
+}
+
+function buildTransactionRowTemplate(transaction, account) {
+  return `<div class="transaction-card">
+              <div class="transaction-info">
+                <p class="account-name">${account.accountName}</p>
+                <p class="transaction-description"><i>${transaction.description}</i></p>
+              </div>
+              <div class="transaction-values">
+                <p class="transaction-amount">${formatDollarAmount(transaction.amount)}</p>
+                <p class="account-running-balance">${formatDollarAmount(transaction.runningBalance)}</p>
+              </div>
+          </div>`;
+}
