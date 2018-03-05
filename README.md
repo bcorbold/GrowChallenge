@@ -17,7 +17,6 @@ While testing there are some things that I noticed weren't quite right... So I d
 |----------------|:-----------:|
 |Auto Complete   |Bottom corners of the input box can still be seen on iOS devices.|
 |Auto Complete   |When entering a value into an auto complete, if you hover over an option and press an arrow key both the key selected option and the hovered are styled as "active".|
-|Auto Complete   |Would be great to have all potential options displayed when auto complete is empty.|
 |Auto Complete   |Gesture typing caused the auto-complete to not be focused (label doesn't go up above the input)|
 |Side Nav        |When viewing on Windows 10 + Edge the filter buttons at the bottom of the side nav do not grow to fill the nav width.|
 |Transaction Card|When viewing on iOS sometimes the `-` sign appears above the transaction amount|
