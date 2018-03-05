@@ -14,7 +14,7 @@ Do to the limited amount of styles in MDL that apply to the challenge, I added m
 While testing there are some things that I noticed weren't quite right... So I decided to help you find them and put the ones I found!
 
 |Affected Area   |Description  |
-|----------------|:-----------:|
+|----------------:|:-----------:|
 |Auto Complete   |Bottom corners of the input box can still be seen on iOS devices.|
 |Auto Complete   |Gesture typing caused the auto-complete to not be focused (label doesn't go up above the input)|
 |Side Nav        |When viewing on Windows 10 + Edge the filter buttons at the bottom of the side nav do not grow to fill the nav width.|
