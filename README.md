@@ -11,15 +11,14 @@ I used [Material Design Light](https://getmdl.io/) as much as possible to keep t
 Do to the limited amount of styles in MDL that apply to the challenge, I added my chosen palettes to a `theme.scss` file to fill in missing styles where needed.
 
 ## Known Bugs
-While testing there are some things that I noticed were a little... off.
-So I decided to help you find them and put them here!
+While testing there are some things that I noticed weren't quite right... So I decided to help you find them and put the ones I found!
 
 |Affected Area   |Description  |
 |----------------|:-----------:|
 |Auto Complete   |Bottom corners of the input box can still be seen on iOS devices.|
 |Auto Complete   |When entering a value into an auto complete, if you hover over an option and press an arrow key both the key selected option and the hovered are styled as "active".|
 |Auto Complete   |Would be great to have all potential options displayed when auto complete is empty.|
+|Auto Complete   |Gesture typing caused the auto-complete to not be focused (label doesn't go up above the input)|
 |Side Nav        |When viewing on Windows 10 + Edge the filter buttons at the bottom of the side nav do not grow to fill the nav width.|
 |Transaction Card|When viewing on iOS sometimes the `-` sign appears above the transaction amount|
-|Transaction List|When viewing on Android + Chrome the `transactions-container` overflows below the footer.|
 |Scroll Bars     |Styled scroll bars don't work on Windows 10 + Edge|

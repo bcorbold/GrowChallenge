@@ -22,7 +22,7 @@ function fetchTransactions() {
       .then(response => response.json())
       .then(data => {
         initHeader();
-        initSideNav(data.accounts, data.categories, data.transactionData.earliestTransactionDate, data.transactionData.latestTransactionDate);
+        initSideNav(data.accounts, data.categories, data.transactionData.earliestTransactionDate, new Date().toISOString().split('T')[0]);
         initTransactionList(data.transactionData.transactions, data.accounts);
         initFooter(data.accounts);
       })

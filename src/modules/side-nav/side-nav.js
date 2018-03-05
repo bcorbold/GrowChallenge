@@ -30,15 +30,16 @@ const sideNaveTemplate = `<div id="filterSideNav" class="side-nav closed-nav">
                             <button class="mdl-button mdl-js-button mdl-button--icon" id="closeNav">
                               <i class="material-icons">close</i>
                             </button>
-                            <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
-                            <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
-                            <div id="${fromDateContainerId}" class="date-input-container"></div>
-                            <div id="${toDateContainerId}" class="date-input-container"></div>
-
-                            
-                            <div id="selected-accounts" class="selected-accounts-list"></div>
-                            <div id="selected-categories" class="categories-accounts-list"></div>
-                            
+                            <div class="filter-inputs">
+                              <div id="${accountFilterContainerId}" class="auto-complete-container"></div>
+                              <div id="${categoryFilterContainerId}" class="auto-complete-container"></div>
+                              <div id="${fromDateContainerId}" class="date-input-container"></div>
+                              <div id="${toDateContainerId}" class="date-input-container"></div>
+  
+                              
+                              <div id="selected-accounts" class="selected-accounts-list"></div>
+                              <div id="selected-categories" class="categories-accounts-list"></div>
+                            </div>
                             <div id="filterButtons" class="filter-buttons">
                               <button id="resetFiltersButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Reset

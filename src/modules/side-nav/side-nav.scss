@@ -12,6 +12,10 @@
   padding: 48px 0;
   transition: 0.25s;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   #closeNav {
     position: absolute;
     top: 8px;
@@ -19,28 +23,30 @@
     z-index: 1;
   }
 
-  .auto-complete-container, .date-input-container {
-    margin: 0 16px;
-    width: -webkit-fill-available;
-    width: -moz-available;
-    width: fill-available;
-    display: flex;
-    align-items: center;
-  }
+  .filter-inputs {
+    margin-top: 36px;
 
-  .selected-accounts-list, .categories-accounts-list {
-    width: 100%;
-    margin: 0 16px;
+    .auto-complete-container, .date-input-container {
+      margin: 0 16px;
+      width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
+      display: flex;
+      align-items: center;
+    }
 
-    .mdl-chip {
-      margin-right: 4px;
+    .selected-accounts-list, .categories-accounts-list {
+      width: 100%;
+      margin: 0 16px;
+
+      .mdl-chip {
+        margin-right: 4px;
+      }
     }
   }
 
   .filter-buttons {
     margin: 0 16px;
-    position: absolute;
-    bottom: 16px;
     width: -webkit-fill-available;
     width: -moz-available;
     width: fill-available;
