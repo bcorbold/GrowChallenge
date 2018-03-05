@@ -6,9 +6,10 @@ import { copyJsonData, formatDollarAmount } from '../helpers';
 import { getFilteredAccountNames, getFilteredCategories, getFromDate, getToDate } from '../side-nav/side-nav';
 
 const transactionContainerTemplate = '<ul id="transactionsContainer" class="transactions-container"></ul>';
-let fullTransactionList = [];
+
+let fullTransactionList = []; // store this here so it can easily be reset
 let fullAccountList = [];
-let renderedTransactionList = [];
+let renderedTransactionList = []; // transactions is current being displayed, used for sorting dates
 
 export function renderTransactionListContainer() { $('body').append(transactionContainerTemplate); }
 

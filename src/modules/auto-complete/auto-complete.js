@@ -22,18 +22,17 @@ export function renderAutoCompleteInput(parentId, inputId, label) {
 }
 
 export function initAutoComplete(inputId, filterList) {
-  autocomplete($(`#${inputId}`), copyJsonData(filterList));
-}
+  const inputElement = $(`#${inputId}`);
+  const options = copyJsonData(filterList);
 
-// auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
-function autocomplete(inputElement, options) {
+  // auto complete functionality was modified based on https://www.w3schools.com/howto/howto_js_autocomplete.asp
   let currentFocus = -1;
 
   // filter on input
-  inputElement.on('input', () => showOptions());
-  inputElement.click((event) => {
-    showOptions();
-    event.stopPropagation();
+  inputElement.on('input', () => showFilteredOptions()); // change the displayed options based on the input
+  inputElement.click((event) => { // show options even if field is empty
+    showFilteredOptions();
+    event.stopPropagation(); // stop propagation so side nav wont be closed (see below)
   });
 
   // highlight selections based on key presses
@@ -56,7 +55,7 @@ function autocomplete(inputElement, options) {
     }
   });
 
-  function showOptions() {
+  function showFilteredOptions() {
     const inputValue = inputElement.val();
     const inputId = inputElement.attr('id');
     closeAllLists();
@@ -76,14 +75,17 @@ function autocomplete(inputElement, options) {
         }
       }
 
-      // add listeners to options
+      // add listeners to option
       if (selectOptionContainer) {
+
+        // emit event to be picked up by side-nav to add to the chip list
         selectOptionContainer.click(function() {
           $(this).trigger('selectOption', [$(this).children('input').val(), inputId]);
           inputElement.val('');
           closeAllLists();
         });
 
+        // highlight hovered item and update currentFocus
         selectOptionContainer.on('mouseover', () => {
           let x = $(`#${inputId}AutoCompleteList`);
           if (x) x = x.children('div');
@@ -96,15 +98,15 @@ function autocomplete(inputElement, options) {
           }
         });
 
-        selectOptionContainer.on('mouseleave', () => {
-          selectOptionContainer.removeClass('auto-complete-active');
-        });
+        // remove highlight styles
+        selectOptionContainer.on('mouseleave', () => selectOptionContainer.removeClass('auto-complete-active'));
 
         $(`#${inputId}AutoCompleteList`).append(selectOptionContainer);
       }
     });
   }
 
+  // minimal changes from the example here, highlight the currentFocus
   function addActive(elementToCheck) {
     if (!elementToCheck) return false;
     removeActive(elementToCheck);
@@ -114,27 +116,22 @@ function autocomplete(inputElement, options) {
       elementToCheck[currentFocus].classList.add('auto-complete-active');
   }
 
+  // minimal changes, remove highlight class
   function removeActive(elements) {
     for (let i = 0; i < elements.length; i++) {
       elements[i].classList.remove('auto-complete-active');
     }
   }
 
-  function closeAllLists(selectedElement) {
-    const autoCompleteItems = $('.auto-complete-items');
+  // removes options pop-ups
+  function closeAllLists() { $('.auto-complete-items').remove(); }
 
-    autoCompleteItems.children().each((i) => {
-      if (selectedElement !== autoCompleteItems[i] && selectedElement !== inputElement) {
-        autoCompleteItems[i].remove();
-      }
-    });
-  }
-
+  // creates option with the text matching the input in bold
   function createAutoCompleteOptionTemplate(option, inputValue, matchedIndex) {
     if (matchedIndex === undefined) {
       return $(`<div>${option}<input type="hidden" value="${option}"></div>`);
     } else if (matchedIndex === 0) {
-       return $(`<div><strong>${option.substr(0, inputValue.length)}</strong>${option.substr(inputValue.length)}<input type="hidden" value="${option}"></div>`);
+      return $(`<div><strong>${option.substr(0, inputValue.length)}</strong>${option.substr(inputValue.length)}<input type="hidden" value="${option}"></div>`);
     }
     return $(`<div>${option.substr(0, matchedIndex)}<strong>${option.substr(matchedIndex, inputValue.length)}</strong>${option.substr(matchedIndex + inputValue.length)}<input type="hidden" value="${option}"></div>`);
   }
@@ -142,6 +139,7 @@ function autocomplete(inputElement, options) {
   $('body').click(() => closeAllLists());
   $('#filterSideNav').click((event) => {
     const eventTarget = $(event.target);
+    // make sure we only close if an option/input hasn't been clicked
     if (!eventTarget.hasClass('auto-complete-active') && eventTarget[0] !== inputElement[0]) {
       closeAllLists();
     }

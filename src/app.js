@@ -1,3 +1,4 @@
+// these are needed so webpack can bundle in styles
 require('./style.scss');
 require('./theme.scss');
 
