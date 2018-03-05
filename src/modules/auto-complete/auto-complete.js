@@ -31,7 +31,10 @@ function autocomplete(inputElement, options) {
 
   // filter on input
   inputElement.on('input', () => showOptions());
-  inputElement.focus(() => showOptions());
+  inputElement.click((event) => {
+    showOptions();
+    event.stopPropagation();
+  });
 
   // highlight selections based on key presses
   inputElement.on('keydown', function(event) {
@@ -138,7 +141,8 @@ function autocomplete(inputElement, options) {
 
   $('body').click(() => closeAllLists());
   $('#filterSideNav').click((event) => {
-    if (event.target.value) {
+    const eventTarget = $(event.target);
+    if (!eventTarget.hasClass('auto-complete-active') && eventTarget[0] !== inputElement[0]) {
       closeAllLists();
     }
   });
